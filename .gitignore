@@ -1,0 +1,5 @@
+# macOS
+.DS_Store
+
+# Large media (GitHub file limit 100MB)
+presentation.mp4

@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LKW.APP Strategisches Angebot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Oswald:wght@500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* --- BRAND IDENTITY --- */
+        :root {
+            --brand-bg: #F6F6F6;       /* Primary Background (Light) */
+            --brand-dark: #222731;     /* Primary Text / Dark Sections */
+            --brand-accent: #2032F0;   /* Electric Blue */
+            --surface-white: #FFFFFF;
+            --border-light: #E2E8F0;
+            --success: #10B981;        /* Green */
+            --danger: #EF4444;         /* Red */
+            --text-main: #222731;
+            --text-muted: #64748B;
+            --slide-width: 1350px;
+            --slide-height: 760px;
+        }
+
+        /* --- CORE --- */
+        html { scroll-behavior: smooth; }
+        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        
+        body { 
+            background-color: #15181E; /* DARK BROWSER BACKGROUND */
+            margin: 0; 
+            padding: 60px 0; 
+            font-family: 'Inter', sans-serif; 
+            color: var(--text-main);
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 60px; 
+            padding-bottom: 300px;
+        }
+
+        .hidden-slide { display: none !important; }
+
+        /* --- SLIDE CONTAINER --- */
+        .slide-container {
+            width: var(--slide-width);
+            height: var(--slide-height);
+            background: var(--brand-bg); 
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            flex-direction: column;
+            padding: 60px 90px;
+            scroll-snap-align: center;
+            opacity: 0; 
+            transform: translateY(20px);
+        }
+
+        .slide-container.dark-theme {
+            background: var(--brand-dark);
+            color: var(--brand-bg);
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1 { font-family: 'Oswald', sans-serif; text-transform: uppercase; margin: 0; letter-spacing: 0.02em; font-size: 80px; line-height: 1.1; }
+        h2, h3 { font-family: 'Oswald', sans-serif; text-transform: uppercase; margin: 0; letter-spacing: 0.02em; }
+        
+        .slide-title {
+            font-size: 48px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            color: var(--text-main);
+        }
+        .dark-theme .slide-title { color: white; }
+        
+        .slide-title::after {
+            content: ''; flex-grow: 1; height: 3px; background: var(--border-light); margin-left: 20px; max-width: 150px;
+        }
+        .dark-theme .slide-title::after { background: #4b5563; }
+
+        p, li { font-size: 24px; line-height: 1.5; color: var(--text-muted); }
+        .dark-theme p, .dark-theme li { color: #FFFFFF; }
+        
+        strong { font-weight: 700; color: var(--text-main); }
+        .dark-theme strong { color: white; }
+
+        .text-primary { color: var(--brand-accent); }
+        .text-success { color: var(--success); }
+        .text-danger { color: var(--danger); }
+        .mono { font-family: 'JetBrains Mono', monospace; letter-spacing: -0.05em; }
+
+        /* --- UI COMPONENTS --- */
+        .accent-bar { 
+            position: absolute; left: 0; top: 40px; bottom: 40px; width: 8px; 
+            background: linear-gradient(180deg, var(--brand-accent) 0%, #1624b5 100%);
+        }
+        
+        .slide-bg-pattern { 
+            position: absolute; top: 0; right: 0; width: 40%; height: 100%; 
+            background-image: radial-gradient(rgba(255,255,255,0.1) 1.5px, transparent 1.5px); 
+            background-size: 24px 24px; opacity: 0.2; pointer-events: none;
+            mask-image: linear-gradient(to left, black, transparent); 
+            -webkit-mask-image: linear-gradient(to left, black, transparent); 
+        }
+
+        .content-area { flex-grow: 1; position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; height: 100%; }
+
+        /* --- CARDS & STATS --- */
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; margin-top: 30px; }
+        
+        .stat-card {
+            background: white; border: 1px solid var(--border-light); border-radius: 20px; 
+            padding: 30px 30px; text-align: center;
+            display: flex; flex-direction: column; justify-content: center; 
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+        .stat-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-color: var(--brand-accent); }
+        
+        .stat-value { font-size: 64px; font-weight: 800; font-family: 'Oswald'; line-height: 1; margin-bottom: 10px; color: var(--brand-dark); }
+        .stat-label { font-size: 16px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; font-weight: 700; }
+
+        /* --- SLIDE 4 FIXES (COMPACT) --- */
+        #slide4 .content-area { justify-content: center; }
+        #slide4 .intro-text { margin-bottom: 30px; text-align: center; }
+        #slide4 .slider-container { padding: 20px 30px; margin-bottom: 30px; }
+        #slide4 .slider-container #truckDisplay { font-size: 70px; }
+        #slide4 input[type=range] { margin: 15px 0; }
+        #slide4 .stat-grid { margin-top: 0; gap: 20px; }
+        #slide4 .stat-card { padding: 20px 15px; }
+        #slide4 .stat-value { font-size: 48px; margin-bottom: 5px; }
+        #slide4 .stat-label { font-size: 14px; }
+
+        /* --- SLIDE 6 FIXES (CENTERED) --- */
+        #slide6 { justify-content: flex-start; }
+        #slide6 .content-area { display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%; height: 100%; }
+        #slide6 .stat-grid { width: 100%; max-width: 1200px; align-items: start; }
+
+        /* --- INTERACTIVE SLIDER --- */
+        .slider-container {
+            width: 100%; max-width: 100%; box-sizing: border-box; padding: 30px;
+            background: white; border-radius: 24px; border: 1px solid var(--brand-accent);
+            box-shadow: 0 10px 30px rgba(32, 50, 240, 0.1); text-align: center; margin-bottom: 30px; 
+        }
+        input[type=range] { width: 100%; -webkit-appearance: none; background: transparent; margin: 30px 0; }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none; height: 40px; width: 40px; border-radius: 50%;
+            background: var(--brand-accent); cursor: pointer; margin-top: -16px;
+            box-shadow: 0 0 0 5px rgba(32, 50, 240, 0.2); transition: transform 0.1s;
+        }
+        input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.1); }
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 8px; background: #E2E8F0; border-radius: 4px; }
+
+        /* --- STICKY BOTTOM BAR --- */
+        .sticky-bar {
+            position: fixed; bottom: 0; left: 0; width: 100%; background: white;
+            border-top: 1px solid var(--border-light); padding: 20px 50px;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 8000; box-shadow: 0 -10px 40px rgba(0,0,0,0.05);
+            transform: translateY(100%); transition: transform 0.5s ease;
+        }
+        .sticky-bar.visible { transform: translateY(0); }
+
+        /* --- VIDEO CONTAINER --- */
+        .video-container {
+            position: fixed; bottom: 120px; right: 50px; width: 320px; height: 320px; background: #000;
+            border: 3px solid var(--brand-accent); border-radius: 20px; overflow: hidden; z-index: 9000; box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            opacity: 0; transition: opacity 0.5s;
+        }
+        .video-container iframe {
+            position: absolute; top: 50%; left: 50%;
+            width: 180%; height: 180%;
+            transform: translate(-50%, -50%);
+            border: none;
+        }
+        .close-video { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.5); color: white; border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; z-index: 10; }
+
+        /* --- START OVERLAY --- */
+        .start-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(34, 39, 49, 0.95); backdrop-filter: blur(10px);
+            z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+        .start-btn {
+            background: var(--brand-accent); color: white; border: none; padding: 25px 70px;
+            font-size: 28px; font-family: 'Oswald', sans-serif; letter-spacing: 2px; border-radius: 60px;
+            cursor: pointer; box-shadow: 0 10px 40px rgba(32, 50, 240, 0.4);
+            transition: all 0.2s ease; display: flex; align-items: center; gap: 20px;
+        }
+        .start-btn:hover { transform: scale(1.05); background: #1624b5; }
+
+        /* --- LISTS --- */
+        .icon-list { list-style: none; padding: 0; margin-top: 40px; }
+        .icon-list li { display: flex; align-items: flex-start; gap: 20px; margin-bottom: 30px; font-size: 24px; }
+        .icon-list i { color: var(--brand-accent); font-size: 30px; margin-top: 4px; width: 40px; text-align: center; }
+
+        /* --- NAVIGATION DOTS --- */
+        .nav-dots { position: fixed; right: 30px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 20px; z-index: 100; }
+        .nav-dot { width: 14px; height: 14px; border-radius: 50%; background: rgba(255,255,255,0.2); cursor: pointer; transition: all 0.3s; }
+        .nav-dot.active { background: var(--brand-accent); transform: scale(1.4); }
+
+        /* --- TIMELINE (Slide 8) --- */
+        .timeline-wrapper {
+            display: flex; justify-content: space-between; gap: 40px; margin-top: 20px;
+        }
+        .timeline-step {
+            flex: 1; text-align: center; padding: 30px 20px;
+            background: white; border-radius: 20px; border: 1px solid var(--border-light);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .timeline-step:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-color: var(--brand-accent); }
+        .step-num {
+            width: 50px; height: 50px; border-radius: 50%; background: var(--brand-accent); color: white;
+            display: inline-flex; align-items: center; justify-content: center;
+            font-family: 'Oswald', sans-serif; font-size: 24px; font-weight: 700; margin-bottom: 15px;
+        }
+
+        /* --- TABLE (Slide 9) --- */
+        .modern-table {
+            width: 100%; border-collapse: separate; border-spacing: 0;
+            background: white; border-radius: 16px; overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid var(--border-light);
+        }
+        .modern-table thead { background: var(--brand-dark); }
+        .modern-table th {
+            padding: 20px 30px; text-align: left; color: white;
+            font-family: 'Oswald', sans-serif; font-size: 16px; letter-spacing: 1px; text-transform: uppercase;
+        }
+        .modern-table td {
+            padding: 20px 30px; font-size: 20px; border-bottom: 1px solid var(--border-light);
+            color: var(--text-main);
+        }
+        .modern-table td:last-child { text-align: right; font-weight: 800; font-size: 22px; }
+        .modern-table tbody tr:last-child td { border-bottom: none; background: #f8fafc; }
+        .modern-table tbody tr:hover { background: #f1f5f9; }
+
+        /* --- SLIDE NUMBER --- */
+        .slide-number {
+            position: absolute; top: 20px; right: 25px;
+            font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 700;
+            color: rgba(0,0,0,0.2); z-index: 5;
+        }
+        .dark-theme .slide-number { color: rgba(255,255,255,0.25); }
+
+    </style>
+</head>
+<body>
+
+    <!-- START OVERLAY -->
+    <div class="start-overlay" id="startOverlay">
+        <div style="text-align: center; margin-bottom: 50px;">
+            <div class="mono" style="color: var(--brand-accent); margin-bottom: 15px; font-size: 18px;">VERTRAULICHE ANALYSE</div>
+            <h1 style="color: white; font-size: 60px; margin: 0;">ANGEBOT FÜR <span id="clientNameOverlay" class="text-primary">KUNDE</span></h1>
+        </div>
+        <button class="start-btn" onclick="startPresentation()">
+            <i class="fa-solid fa-play"></i> PRÄSENTATION STARTEN
+        </button>
+    </div>
+
+    <!-- STICKY BOTTOM BAR -->
+    <div class="sticky-bar" id="stickyBar">
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <div style="width: 12px; height: 12px; background: var(--success); border-radius: 50%; box-shadow: 0 0 10px var(--success);"></div>
+            <span class="mono" style="font-size: 16px; color: var(--text-muted);">LIVE-BERECHNUNG (<span id="stickyTrucks">1200</span> LKW)</span>
+        </div>
+        <div class="mono" style="font-size: 22px; color: var(--brand-dark);">MÖGLICHE EINSPARUNG: <span class="text-success" style="font-weight: 800;" id="stickySavings">€0</span> / MONAT</div>
+    </div>
+
+    <!-- VIDEO BUBBLE -->
+    <div class="video-container" id="videoWrapper">
+        <button class="close-video" onclick="this.parentElement.style.display='none'">&times;</button>
+        <div id="videoPlaceholder" style="width: 100%; height: 100%; background: #222; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white;">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+        </div>
+    </div>
+
+    <!-- NAV DOTS -->
+    <div class="nav-dots">
+        <!-- Generated by JS -->
+    </div>
+
+    <!-- ================= SLIDES ================= -->
+
+    <!-- Slide 1: Title -->
+    <div class="slide-container dark-theme" id="slide1" style="justify-content: center; text-align: center;">
+        <div style="margin-bottom: 50px;">
+            <h1 style="margin-bottom: 15px;">LENKZEITEN MAXIMIEREN</h1>
+            <h1 style="color: var(--brand-accent);">SUCHVERKEHR ELIMINIEREN</h1>
+        </div>
+        <p style="margin-bottom: 80px;">Verwandeln Sie Stillstand in Produktivität: Effizienzsteigerung für Ihre Flotte.</p>
+        
+        <div style="display: inline-flex; align-items: center; gap: 40px; background: rgba(255,255,255,0.05); padding: 30px 60px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.1);">
+            <span id="clientNameHero" style="font-family: 'Oswald'; font-size: 40px; letter-spacing: 2px;">KUNDE</span>
+            <i class="fa-solid fa-xmark" style="color: #94a3b8; font-size: 28px;"></i>
+            <span style="font-family: 'Oswald'; font-size: 40px; letter-spacing: 2px; color: white;"><span class="text-primary">LKW</span>.APP</span>
+        </div>
+    </div>
+
+    <!-- Slide 2: The Challenge -->
+    <div class="slide-container dark-theme" id="slide2" style="background: linear-gradient(rgba(34, 39, 49, 0.8), rgba(34, 39, 49, 0.8)), url('assets/money_on_road_background.jpeg'); background-size: cover; background-position: center;">
+        <div class="content-area">
+            <h2 style="font-size: 120px; line-height: 1; margin-bottom: 30px;">DIE<br>HERAUSFORDERUNG</h2>
+            <div style="width: 150px; height: 10px; background: var(--danger); margin-bottom: 40px;"></div>
+            <p style="font-size: 48px; line-height: 1.3; font-weight: 600; max-width: 1000px; color: #FFFFFF;">
+                Warum Ihre Flotte derzeit bares Geld auf der Straße liegen lässt.
+            </p>
+        </div>
+    </div>
+
+    <!-- Slide 3: The Cost Factor -->
+    <div class="slide-container" id="slide3">
+        <div class="accent-bar"></div>
+        <h2 class="slide-title">DER KOSTENFAKTOR</h2>
+        <div class="grid-2">
+            <div>
+                <div style="margin-bottom: 50px;">
+                    <span style="background: rgba(239, 68, 68, 0.1); color: var(--danger); font-weight: 800; padding: 10px 20px; border-radius: 6px; font-size: 16px;">IST-ZUSTAND</span>
+                    <h3 style="font-size: 64px; color: var(--brand-dark); margin-top: 15px;">Ø 45 MIN. VERLUST</h3>
+                    <p>Im Durchschnitt verlieren Ihre Fahrer 45 Minuten wertvolle Lenkzeit pro Parkvorgang.</p>
+                </div>
+                <ul class="icon-list">
+                    <li><i class="fa-solid fa-coins"></i> <span><strong>€4,39</strong> direkte Kosten pro Suche</span></li>
+                    <li><i class="fa-solid fa-rotate"></i> <span><strong>4x</strong> pro Woche pro Fahrzeug</span></li>
+                    <li><i class="fa-solid fa-triangle-exclamation text-danger"></i> <span><strong>Compliance-Risiko:</strong> Verstöße</span></li>
+                </ul>
+            </div>
+            <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.1); height: 100%;">
+                <img src="assets/parking_chaos_aerial.jpg" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: Interactive Calculator -->
+    <section class="slide-container" id="slide4">
+        <div class="slide-bg-pattern"></div>
+        <h2 class="slide-title">FINANZIELLER SCHADEN</h2>
+        <div class="content-area">
+            <p class="intro-text" style="text-align: center; margin-bottom: 15px; font-size: 24px;">Basierend auf Ihrer aktuellen Flottengröße von <strong class="text-primary" id="truckText">120</strong> LKW:</p>
+            
+            <div class="slider-container">
+                <div style="font-size: 80px; font-family: 'Oswald'; font-weight: 700; color: var(--brand-accent);" id="truckDisplay">120</div>
+                <div class="mono" style="color: var(--text-muted); margin-bottom: 20px; font-size: 18px;">AKTIVE LKW</div>
+                <input type="range" id="truckSlider" min="10" max="5000" step="10" value="120" oninput="recalculateAll()">
+            </div>
+
+            <div class="stat-grid">
+                <div class="stat-card" id="card1">
+                    <div class="stat-value text-danger" id="wastedHours">1.512 h</div>
+                    <div class="stat-label">VERSCHWENDETE STD. / MONAT</div>
+                </div>
+                <div class="stat-card" id="card2">
+                    <div class="stat-value" id="wastedMoney">€8.850</div>
+                    <div class="stat-label">OPEX-VERLUST / MONAT</div>
+                </div>
+                <div class="stat-card" id="card3">
+                    <div class="stat-value" style="color: #64748b;" id="wastedCo2">32 t</div>
+                    <div class="stat-label">UNNÖTIGES CO2</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 5: Comparison (HIDDEN) -->
+    <div class="slide-container hidden-slide" id="slide5">
+        <div class="accent-bar"></div>
+        <h2 class="slide-title">KAPAZITÄTEN FREISETZEN</h2>
+        <div class="content-area">
+            <!-- Animated Charts -->
+            <div style="margin-bottom: 40px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: 700; font-size: 22px;">
+                    <span class="text-danger">HEUTE (Verlust)</span>
+                    <span id="labelLoss">1.512 Std.</span>
+                </div>
+                <div style="width: 100%; height: 70px; background: #e5e7eb; border-radius: 8px; overflow: hidden;">
+                    <div class="chart-bar" style="width: 0%; height: 100%; background: var(--danger); display: flex; align-items: center; padding-left: 30px; color: white; font-weight: 700; font-size: 20px;" data-width="85%">
+                        Unproduktive Suchzeit (Gesamtflotte)
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 60px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: 700; font-size: 22px;">
+                    <span class="text-success">MIT LKW.APP</span>
+                    <span id="labelGain">+1.436 Std.</span>
+                </div>
+                <div style="width: 100%; height: 70px; background: #e5e7eb; border-radius: 8px; overflow: hidden;">
+                    <div class="chart-bar" style="width: 0%; height: 100%; background: var(--success); display: flex; align-items: center; padding-left: 30px; color: white; font-weight: 700; font-size: 20px;" data-width="100%">
+                        Produktiv nutzbare Lenkzeit
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background: white; border: 2px solid var(--success); padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 10px 40px rgba(16, 185, 129, 0.1);">
+                <h3 style="margin-bottom: 10px; color: var(--success); font-size: 32px;">DAS ERGEBNIS</h3>
+                <p style="margin: 0; font-size: 28px;">Die Eliminierung der Suchzeit ermöglicht <strong class="text-success" id="transportsGained">+14 zusätzliche Transporte</strong> pro Monat.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: Intelligent Parking (CENTERED) -->
+    <div class="slide-container" id="slide6">
+        <h2 class="slide-title" style="justify-content: center;">INTELLIGENT PARKING MANAGEMENT</h2>
+        <div class="content-area">
+            <div class="stat-grid" style="width: 100%;">
+                <div class="stat-card" style="padding: 20px;">
+                    <i class="fa-solid fa-microchip text-primary" style="font-size: 40px; margin-bottom: 20px;"></i>
+                    <h3 style="margin-bottom: 10px;">KI-PROGNOSEN</h3>
+                    <p style="font-size: 18px;">Algorithmen analysieren historische Daten, um die Belegung Stunden im Voraus vorherzusagen.</p>
+                </div>
+                <div class="stat-card" style="padding: 20px;">
+                    <i class="fa-solid fa-users-viewfinder text-primary" style="font-size: 40px; margin-bottom: 20px;"></i>
+                    <h3 style="margin-bottom: 10px;">ECHTZEIT-VALIDIERUNG</h3>
+                    <p style="font-size: 18px;">Live-Daten von über 85.000 aktiven Fahrern aktualisieren das Netzwerk kontinuierlich.</p>
+                </div>
+                <div class="stat-card" style="padding: 20px;">
+                    <i class="fa-solid fa-route text-primary" style="font-size: 40px; margin-bottom: 20px;"></i>
+                    <h3 style="margin-bottom: 10px;">DYNAMISCHES ROUTING</h3>
+                    <p style="font-size: 18px;">Routenplanung, die sich dynamisch an Lenkzeiten und Parkverfügbarkeit anpasst.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 7: Transparency (HIDDEN) -->
+    <div class="slide-container hidden-slide" id="slide7">
+        <h2 class="slide-title">VOLLE TRANSPARENZ</h2>
+        <div class="grid-2">
+            <div>
+                <h3 class="text-primary" style="margin-bottom: 25px; font-size: 36px;">VORAUSSCHAUENDE PLANUNG</h3>
+                <p>Unsere Algorithmen verfeinern Prognosen kontinuierlich auf Basis historischer Daten und Live-Meldungen.</p>
+                <p style="margin-top: 30px;"><strong>Für die Disposition:</strong> Sofortige Sichtbarkeit verfügbarer Kapazitäten und Tourenplanung ohne "Sicherheits-Puffer".</p>
+            </div>
+            <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1);">
+                <img src="assets/dashboard_prediction_graph.jpg" style="width: 100%;">
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 8: Pilot Phase (HIDDEN) -->
+    <div class="slide-container hidden-slide" id="slide8">
+        <h2 class="slide-title" style="justify-content: center;">PILOTPHASE & ROLLOUT</h2>
+        <div class="content-area">
+            <div class="timeline-wrapper">
+                <div class="timeline-step">
+                    <div class="step-num">1</div>
+                    <h3 style="color: var(--brand-accent);">TESTSTELLUNG</h3>
+                    <p style="font-size: 18px;">30 Tage Testzeitraum<br><strong>Aufwand: 10 Min.</strong></p>
+                </div>
+                <div class="timeline-step">
+                    <div class="step-num">2</div>
+                    <h3 style="color: var(--brand-accent);">ONBOARDING</h3>
+                    <p style="font-size: 18px;">Auswahl 5-10 Fahrer<br><strong>Direktes Feedback</strong></p>
+                </div>
+                <div class="timeline-step">
+                    <div class="step-num">3</div>
+                    <h3 style="color: var(--brand-accent);">ROLLOUT</h3>
+                    <p style="font-size: 18px;">Flottenweiter Einsatz<br><strong>ROI Messung</strong></p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 80px; text-align: center;">
+                <div style="display: inline-block; padding: 20px 40px; background: #eef2ff; border-radius: 50px; border: 2px dashed var(--brand-accent);">
+                    <strong class="text-primary" style="font-size: 22px;">MEHRWERT: ZUFRIEDENE FAHRER + HÖHERER DURCHSATZ</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 9: Cost Benefit Table (HIDDEN) -->
+    <div class="slide-container hidden-slide" id="slide9">
+        <div class="accent-bar"></div>
+        <h2 class="slide-title">POTENZIALANALYSE</h2>
+        <div class="content-area">
+            <table class="modern-table">
+                <thead>
+                    <tr>
+                        <th style="width: 35%;">KPI</th>
+                        <th style="width: 20%;">IST-ZUSTAND</th>
+                        <th style="width: 20%;">MIT LKW.APP</th>
+                        <th style="width: 25%; text-align: right;">STEIGERUNG</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Effizienz (km / bezahlte Std.)</td>
+                        <td>58,5 km/h</td>
+                        <td>67,2 km/h</td>
+                        <td class="text-success">+ 14,9%</td>
+                    </tr>
+                    <tr>
+                        <td>Fahrerzufriedenheit</td>
+                        <td>2,8 / 5,0</td>
+                        <td>4,2 / 5,0</td>
+                        <td class="text-success">+ 50,0%</td>
+                    </tr>
+                    <tr>
+                        <td>CO₂ Emissionen</td>
+                        <td>410 t</td>
+                        <td>385 t</td>
+                        <td class="text-success">- 6,1%</td>
+                    </tr>
+                    <tr>
+                        <td>Monatlicher OPEX <small>(Gesamt für <span id="tableTrucks">1200</span> LKW)</small></td>
+                        <td id="tableOpexOld">€850.000</td>
+                        <td id="tableOpexNew">€788.500</td>
+                        <td class="text-success" style="font-size: 28px;" id="tableSaving">- €61.500</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Slide 10: Integration (HIDDEN) -->
+    <div class="slide-container hidden-slide" id="slide10">
+        <h2 class="slide-title">NAHTLOSE INTEGRATION</h2>
+        <div class="grid-2">
+            <div>
+                <h3 style="margin-bottom: 25px; font-size: 36px;">LKW.APP API</h3>
+                <p>Verbinden Sie unsere Daten direkt mit Ihrem TMS und Telematik-Systemen.</p>
+                <ul class="icon-list">
+                    <li><i class="fa-solid fa-check"></i> Live-Belegungsdaten (Parkplätze)</li>
+                    <li><i class="fa-solid fa-check"></i> Echtzeit-Statusmeldungen der Fahrer</li>
+                    <li><i class="fa-solid fa-check"></i> 42+ Service-Filter (Sicherheit, Duschen, etc.)</li>
+                </ul>
+            </div>
+            <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1);">
+                <img src="assets/api_integration_chart.jpg" style="width: 100%;">
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 11: Why LKW.APP -->
+    <div class="slide-container" id="slide11">
+        <h2 class="slide-title">WARUM LKW.APP?</h2>
+        <div class="stat-grid" style="grid-template-columns: 1fr 1fr; gap: 60px;">
+            <div class="stat-card" style="text-align: left; border-top: 8px solid var(--success);">
+                <h3 style="margin-bottom: 25px; font-size: 32px;">FÜR IHRE FAHRER</h3>
+                <ul class="icon-list" style="margin-top: 0;">
+                    <li><i class="fa-solid fa-heart text-success"></i> Weniger Suchstress & Ermüdung</li>
+                    <li><i class="fa-solid fa-shield-halved text-success"></i> Sichere, validierte Ruhezeiten</li>
+                </ul>
+            </div>
+            <div class="stat-card" style="text-align: left; border-top: 8px solid var(--brand-accent);">
+                <h3 style="margin-bottom: 25px; font-size: 32px;">FÜR IHRE DISPOSITION</h3>
+                <ul class="icon-list" style="margin-top: 0;">
+                    <li><i class="fa-solid fa-stopwatch text-primary"></i> Präzise ETA-Planung</li>
+                    <li><i class="fa-solid fa-eye text-primary"></i> Volle Transparenz über die Flotte</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 12: Contact -->
+    <div class="slide-container dark-theme" id="slide12">
+        <div class="content-area">
+            <h2 style="font-size: 100px; margin-bottom: 30px;">KONTAKT.</h2>
+            <p style="color: #FFFFFF; font-size: 32px; margin-bottom: 80px;">Gemeinsam lösen wir den Parkplatz-Engpass.</p>
+            
+            <div style="display: flex; align-items: center; gap: 50px;">
+                <img src="assets/roland_moussavi_portrait.jpg" alt="Roland Moussavi" style="width: 180px; height: 180px; border-radius: 50%; object-fit: cover; border: 5px solid var(--brand-accent);">
+                <div>
+                    <h3 style="font-size: 40px; margin-bottom: 10px;">ROLAND MOUSSAVI</h3>
+                    <p style="margin: 0 0 20px 0; color: #FFFFFF; font-size: 24px;">CEO & Co-Founder</p>
+                    <div style="font-weight: 700; color: var(--brand-accent); font-size: 28px;">r.moussavi@aparkado.de</div>
+                    <div style="margin-top: 10px; font-size: 24px;">www.lkw.app</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- CONFIG ---
+        const CONSTANTS = {
+            searchesPerWeek: 4, weeks: 4.2, hoursLost: 0.75, cost: 4.39, co2: 5.9, transportsRatio: 0.093
+        };
+
+        // --- VIDEO SYNC TIMELINE (seconds, +2.5s offset for Loom boot) ---
+        const SYNC = [
+            { t: 0,    id: 'slide1'  },  // 00:00 - Title
+            { t: 4.5,  id: 'slide2'  },  // 02:00 + 2.5s
+            { t: 10.5, id: 'slide3'  },  // 08:00 + 2.5s
+            { t: 21.5, id: 'slide4'  },  // 19:00 + 2.5s
+            { t: 31.5, id: 'slide6'  },  // 29:00 + 2.5s
+            { t: 47.5, id: 'slide11' },  // 45:00 + 2.5s
+            { t: 55.5, id: 'slide12' }   // 53:00 + 2.5s
+        ];
+
+        // --- INIT & ANIMATIONS ---
+        function startPresentation() {
+            // Reveal visible slides
+            gsap.to(".slide-container:not(.hidden-slide)", { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "power2.out" });
+            
+            gsap.to("#startOverlay", { opacity: 0, duration: 0.5, onComplete: () => document.getElementById('startOverlay').style.display = 'none' });
+            gsap.to("#stickyBar", { y: 0, duration: 0.5, delay: 0.5 });
+            
+            injectVideo();
+            startSyncTimer();
+        }
+
+        // --- CALCULATION LOGIC ---
+        function formatNumber(num) {
+            return new Intl.NumberFormat('de-DE').format(Math.round(num));
+        }
+
+        function recalculateAll() {
+            const trucks = parseInt(document.getElementById('truckSlider').value);
+            
+            const searches = trucks * CONSTANTS.searchesPerWeek * CONSTANTS.weeks;
+            const hours = searches * CONSTANTS.hoursLost;
+            const money = searches * CONSTANTS.cost;
+            const co2 = (searches * CONSTANTS.co2) / 1000;
+            const transports = hours * CONSTANTS.transportsRatio;
+
+            // Update DOM Texts
+            document.getElementById('truckDisplay').innerText = formatNumber(trucks);
+            document.getElementById('truckText').innerText = formatNumber(trucks);
+            document.getElementById('stickyTrucks').innerText = formatNumber(trucks);
+            
+            // Animated Updates
+            animateValue("wastedHours", hours, " h");
+            animateValue("wastedMoney", money, "", "€");
+            animateValue("wastedCo2", co2, " t");
+            
+            animateValue("stickySavings", money, "", "€");
+            animateValue("transportsGained", transports, "+", " zusätzliche Transporte");
+            
+            // Dynamic Labels
+            document.getElementById('labelLoss').innerText = formatNumber(hours) + " Std.";
+            document.getElementById('labelGain').innerText = "+" + formatNumber(hours * 0.95) + " Std.";
+            
+            updateCharts();
+        }
+
+        // --- VIDEO INJECTION ---
+        function injectVideo() {
+            const wrapper = document.getElementById('videoWrapper');
+            const urlParams = new URLSearchParams(window.location.search);
+            // Updated default video to new Loom link
+            let videoUrl = urlParams.get('video') || "https://www.loom.com/share/2373fc4489e64cc9a2e6fb52fe04fff7";
+            
+            if (!videoUrl) return;
+
+            wrapper.style.display = 'block';
+            gsap.to(wrapper, { opacity: 1, duration: 0.5, delay: 0.5 });
+
+            if(videoUrl.includes('loom')) {
+                videoUrl = videoUrl.replace('/share/', '/embed/') + '?autoplay=1&muted=0&hide_owner=true&hide_share=true&hide_title=true';
+                wrapper.innerHTML = `<iframe src="${videoUrl}" frameborder="0" allow="autoplay; fullscreen; microphone; camera"></iframe>`;
+            } else {
+                wrapper.innerHTML = `<video src="${videoUrl}" width="100%" height="100%" autoplay style="object-fit:cover;"></video>`;
+            }
+        }
+
+        // --- UTILS ---
+        function animateValue(id, end, prefix="", suffix="") {
+            const el = document.getElementById(id);
+            if(!el) return;
+            gsap.to(el, {
+                innerText: Math.round(end),
+                duration: 0.5,
+                snap: { innerText: 1 },
+                onUpdate: function() {
+                    el.innerText = prefix + new Intl.NumberFormat('de-DE').format(Math.round(this.targets()[0].innerText)) + suffix;
+                }
+            });
+        }
+
+        function startSyncTimer() {
+            let seconds = 0;
+            let nextIndex = 0;
+
+            // Handle t:0 immediately
+            if (SYNC[0] && SYNC[0].t === 0) {
+                document.getElementById(SYNC[0].id).scrollIntoView({ behavior: 'smooth' });
+                nextIndex = 1;
+            }
+
+            setInterval(() => {
+                seconds++;
+                if (nextIndex < SYNC.length && seconds >= SYNC[nextIndex].t) {
+                    document.getElementById(SYNC[nextIndex].id).scrollIntoView({ behavior: 'smooth' });
+                    nextIndex++;
+                }
+            }, 1000);
+        }
+        
+        function updateCharts() {
+            gsap.to(".chart-bar", {
+                width: (i, target) => target.getAttribute("data-width"),
+                duration: 1.5,
+                ease: "power2.out"
+            });
+        }
+
+        // --- INIT LOAD ---
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const client = params.get('company') || "KUNDE";
+            const trucks = params.get('trucks') || 120; // Default 120
+
+            document.getElementById('clientNameOverlay').innerText = client.replace(/_/g, ' ');
+            document.getElementById('clientNameHero').innerText = client.replace(/_/g, ' ');
+            document.getElementById('truckSlider').value = trucks;
+            
+            recalculateAll();
+            
+            const dotContainer = document.querySelector('.nav-dots');
+            // Add dots and slide numbers for visible slides only
+            let slideNum = 1;
+            document.querySelectorAll('.slide-container:not(.hidden-slide)').forEach((slide, index) => {
+                // Add slide number label
+                const num = document.createElement('div');
+                num.className = 'slide-number';
+                num.textContent = slideNum++;
+                slide.appendChild(num);
+
+                // Add nav dot
+                const dot = document.createElement('div');
+                dot.className = 'nav-dot';
+                if(index === 0) dot.classList.add('active');
+                dot.onclick = () => slide.scrollIntoView({behavior:'smooth'});
+                dotContainer.appendChild(dot);
+            });
+        });
+
+    </script>
+</body>
+</html>
