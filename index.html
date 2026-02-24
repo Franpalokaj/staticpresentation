@@ -25,28 +25,41 @@
             --danger: #EF4444;         /* Red */
             --text-main: #222731;
             --text-muted: #64748B;
-            --slide-width: 1350px;
-            --slide-height: 760px;
+        --slide-width: 100vw;
+        --slide-height: 100vh;
         }
 
         /* --- CORE --- */
-        html { scroll-behavior: smooth; }
+        html { overflow: hidden; }
         * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
         
         body { 
-            background-color: #15181E; /* DARK BROWSER BACKGROUND */
+            background-color: #15181E;
             margin: 0; 
-            padding: 60px 0; 
+            padding: 0;
+            overflow: hidden;
             font-family: 'Inter', sans-serif; 
             color: var(--text-main);
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            gap: 60px; 
-            padding-bottom: 300px;
         }
 
         .hidden-slide { display: none !important; }
+
+        /* --- SLIDE DECK --- */
+        .slide-deck {
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: row;
+            height: 100vh;
+            transition: transform 0.4s ease;
+            will-change: transform;
+        }
+        .slide-deck .slide-container {
+            flex: 0 0 100vw;
+            width: 100vw;
+            min-width: 100vw;
+        }
 
         /* --- SLIDE CONTAINER --- */
         .slide-container {
@@ -55,12 +68,9 @@
             background: var(--brand-bg); 
             position: relative;
             overflow: hidden;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255,255,255,0.1);
             display: flex;
             flex-direction: column;
-            padding: 60px 90px;
-            scroll-snap-align: center;
+            padding: 60px clamp(48px, 6vw, 100px);
             opacity: 0; 
             transform: translateY(20px);
         }
@@ -69,6 +79,7 @@
             background: var(--brand-dark);
             color: var(--brand-bg);
         }
+        #slide11 .slide11-boxes-wrap { flex-grow: 1; display: flex; align-items: center; width: 100%; }
 
         /* --- TYPOGRAPHY --- */
         h1 { font-family: 'Oswald', sans-serif; text-transform: uppercase; margin: 0; letter-spacing: 0.02em; font-size: 80px; line-height: 1.1; }
@@ -83,6 +94,10 @@
             align-items: center;
             gap: 30px;
             color: var(--text-main);
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
         }
         .dark-theme .slide-title { color: white; }
         
@@ -116,11 +131,11 @@
             -webkit-mask-image: linear-gradient(to left, black, transparent); 
         }
 
-        .content-area { flex-grow: 1; position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; }
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; height: 100%; }
+        .content-area { flex-grow: 1; position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; max-width: 1280px; margin-left: auto; margin-right: auto; width: 100%; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; height: 100%; max-width: 1280px; margin-left: auto; margin-right: auto; width: 100%; }
 
         /* --- CARDS & STATS --- */
-        .stat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; margin-top: 30px; }
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; margin-top: 30px; max-width: 1280px; margin-left: auto; margin-right: auto; width: 100%; }
         
         .stat-card {
             background: white; border: 1px solid var(--border-light); border-radius: 20px; 
@@ -178,34 +193,65 @@
         }
         .sticky-bar.visible { transform: translateY(0); }
 
-        /* --- VIDEO CONTAINER --- */
-        .video-container {
-            position: fixed; bottom: 120px; right: 50px; width: 320px; height: 320px; background: #000;
-            border: 3px solid var(--brand-accent); border-radius: 20px; overflow: hidden; z-index: 9000; box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-            opacity: 0; transition: opacity 0.5s;
-        }
-        .video-container iframe {
-            position: absolute; top: 50%; left: 50%;
-            width: 210%; height: 210%;
-            transform: translate(-50%, -50%);
-            border: none;
-        }
-        .close-video { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.5); color: white; border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; z-index: 10; }
-
-        /* --- START OVERLAY --- */
-        .start-overlay {
+        /* --- FOUNDER FORM MODAL --- */
+        .founder-form-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(34, 39, 49, 0.95); backdrop-filter: blur(10px);
-            z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: opacity 0.5s ease;
+            background: rgba(34, 39, 49, 0.98); backdrop-filter: blur(10px);
+            z-index: 10001; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 24px; box-sizing: border-box;
         }
-        .start-btn {
-            background: var(--brand-accent); color: white; border: none; padding: 25px 70px;
-            font-size: 28px; font-family: 'Oswald', sans-serif; letter-spacing: 2px; border-radius: 60px;
-            cursor: pointer; box-shadow: 0 10px 40px rgba(32, 50, 240, 0.4);
-            transition: all 0.2s ease; display: flex; align-items: center; gap: 20px;
+        .founder-form-modal.hidden { display: none !important; }
+        .founder-form-inner {
+            background: white; border-radius: 20px; padding: 0; max-width: 520px; width: 100%;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+            border: 1px solid var(--border-light);
+            overflow: hidden;
         }
-        .start-btn:hover { transform: scale(1.05); background: #1624b5; }
+        .founder-form-header {
+            display: flex; align-items: flex-start; gap: 16px;
+            padding: 28px 32px 24px; background: #fafafa; border-bottom: 1px solid var(--border-light);
+        }
+        .founder-form-header-icon {
+            width: 48px; height: 48px; min-width: 48px; border-radius: 12px;
+            background: #E8F0FE; color: #4285F4; display: flex; align-items: center; justify-content: center;
+            font-size: 22px;
+        }
+        .founder-form-header-text h2 {
+            margin: 0 0 6px 0; font-size: 22px; font-weight: 700; color: var(--brand-dark);
+        }
+        .founder-form-header-text p {
+            margin: 0; font-size: 14px; color: var(--text-muted); line-height: 1.4;
+        }
+        .founder-form-body { padding: 28px 32px 32px; }
+        .founder-form-inner label {
+            display: block; font-size: 14px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .founder-form-inner input[type="text"],
+        .founder-form-inner input[type="number"],
+        .founder-form-inner input[type="url"] {
+            width: 100%; padding: 16px 20px; min-height: 52px; border: 1px solid var(--border-light); border-radius: 12px; font-size: 17px; margin-bottom: 22px; box-sizing: border-box;
+        }
+        .founder-form-inner input[type="file"] { position: absolute; width: 0.1px; height: 0.1px; opacity: 0; overflow: hidden; z-index: -1; }
+        .founder-form-logo-upload {
+            display: flex; align-items: flex-start; gap: 16px; padding: 20px; margin-bottom: 22px;
+            background: #f8fafc; border: 2px dashed var(--border-light); border-radius: 14px;
+            cursor: pointer; transition: background 0.2s, border-color 0.2s;
+        }
+        .founder-form-logo-upload:hover { background: #f1f5f9; border-color: var(--brand-accent); }
+        .founder-form-logo-upload-icon {
+            width: 48px; height: 48px; min-width: 48px; border-radius: 12px;
+            background: #E8F0FE; color: #4285F4; display: flex; align-items: center; justify-content: center; font-size: 22px;
+        }
+        .founder-form-logo-upload-text h3 { margin: 0 0 4px 0; font-size: 16px; font-weight: 700; color: var(--brand-dark); }
+        .founder-form-logo-upload-text p { margin: 0; font-size: 14px; color: var(--text-muted); line-height: 1.4; }
+        .founder-form-logo-url-toggle { font-size: 13px; color: var(--brand-accent); cursor: pointer; margin-top: 12px; }
+        .founder-form-logo-url-toggle:hover { text-decoration: underline; }
+        .founder-form-logo-url-wrap { margin-top: 12px; }
+        .founder-form-logo-url-wrap input { width: 100%; padding: 12px 16px; border: 1px solid var(--border-light); border-radius: 10px; font-size: 15px; box-sizing: border-box; }
+        .founder-form-inner .form-btn {
+            width: 100%; background: var(--brand-accent); color: white; border: none; padding: 18px; font-size: 20px; font-family: 'Oswald', sans-serif; letter-spacing: 1px; border-radius: 12px; cursor: pointer; margin-top: 16px;
+        }
+        .founder-form-inner .form-btn:hover { background: #1624b5; }
 
         /* --- LISTS --- */
         .icon-list { list-style: none; padding: 0; margin-top: 40px; }
@@ -296,30 +342,33 @@
         .dark-theme .slide-number { color: rgba(255,255,255,0.25); }
 
         /* =========================================================
+           PRINT — Export as PDF (one slide per page)
+           ========================================================= */
+        @media print {
+            html, body { overflow: visible !important; height: auto !important; margin: 0; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .nav-dots, .no-print { visibility: hidden !important; display: none !important; }
+            .slide-deck { position: relative !important; transform: none !important; height: auto !important; flex-direction: column !important; }
+            .slide-deck .slide-container { flex: none !important; width: 100% !important; min-width: 100% !important; height: 100vh !important; min-height: 100vh !important; page-break-after: always; opacity: 1 !important; transform: none !important; }
+            .slide-deck .slide-container:last-child { page-break-after: auto; }
+        }
+
+        /* =========================================================
            RESPONSIVE — TABLET (max-width: 1024px)
            ========================================================= */
         @media (max-width: 1024px) {
             :root {
-                --slide-width: 100%;
-                --slide-height: auto;
+                --slide-width: 100vw;
+                --slide-height: 100vh;
             }
 
-            body {
-                padding: 30px 0;
-                gap: 30px;
-                padding-bottom: 120px;
+            .slide-deck .slide-container {
+                flex: 0 0 100vw;
+                width: 100vw;
+                min-width: 100vw;
             }
 
             .slide-container {
-                width: 92vw;
-                max-width: 100%;
-                height: auto;
-                min-height: unset;
                 padding: 40px 50px;
-            }
-
-            .section-divider {
-                width: 92vw;
             }
 
             h1 { font-size: 54px !important; }
@@ -339,26 +388,8 @@
            RESPONSIVE — MOBILE (max-width: 768px)
            ========================================================= */
         @media (max-width: 768px) {
-            body {
-                padding: 16px 0;
-                gap: 20px;
-                padding-bottom: 100px;
-            }
-
             .slide-container {
-                width: 100%;
-                height: auto !important;
-                min-height: unset !important;
                 padding: 32px 20px !important;
-                border-radius: 0;
-                border-left: none;
-                border-right: none;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            }
-
-            .section-divider {
-                width: 100%;
-                padding: 20px 16px 30px;
             }
 
             .slide-number { display: none; }
@@ -508,17 +539,6 @@
                 grid-template-columns: 1fr !important;
                 gap: 20px !important;
             }
-            /* Social proof logos */
-            #slide11 > div:last-child > div {
-                gap: 16px !important;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            #slide11 > div:last-child > div > div {
-                width: 80px !important;
-                height: 36px !important;
-                font-size: 10px !important;
-            }
 
             /* --- Slide 12: Contact --- */
             #slide12 h2 {
@@ -539,26 +559,6 @@
                 font-size: 18px !important;
             }
 
-            /* --- Start Overlay --- */
-            .start-overlay {
-                padding: 24px;
-            }
-            #overlayHeading,
-            .start-overlay h1 {
-                font-size: 30px !important;
-            }
-            .start-overlay .mono {
-                font-size: 14px !important;
-            }
-            .start-overlay p {
-                font-size: 16px !important;
-            }
-            .start-btn {
-                padding: 18px 40px;
-                font-size: 20px;
-                gap: 14px;
-            }
-
             /* --- Sticky Bar --- */
             .sticky-bar {
                 flex-direction: column;
@@ -571,15 +571,6 @@
             }
             .sticky-bar > div:last-child {
                 font-size: 16px !important;
-            }
-
-            /* --- Video Bubble --- */
-            .video-container {
-                width: 180px !important;
-                height: 180px !important;
-                bottom: 80px !important;
-                right: 12px !important;
-                border-radius: 14px;
             }
 
             /* --- Nav Dots (hidden) --- */
@@ -654,37 +645,50 @@
             #slide2 h2 { font-size: 36px !important; }
             #slide12 h2 { font-size: 38px !important; }
 
-            .start-overlay h1,
-            #overlayHeading { font-size: 24px !important; }
-            .start-btn { padding: 14px 28px; font-size: 18px; }
-
             .stat-value { font-size: 30px !important; }
 
             #slide4 #truckDisplay { font-size: 36px !important; }
-
-            .video-container {
-                width: 140px !important;
-                height: 140px !important;
-                bottom: 74px !important;
-                right: 8px !important;
-            }
         }
 
     </style>
 </head>
 <body>
 
-    <!-- START OVERLAY -->
-    <div class="start-overlay" id="startOverlay">
-        <div style="text-align: center; margin-bottom: 50px;">
-            <div class="mono" style="color: var(--brand-accent); margin-bottom: 15px; font-size: 18px;">VERTRAULICHE ANALYSE</div>
-            <!-- Personalized: name + role + company + location -->
-            <h1 id="overlayHeading" style="color: white; font-size: 60px; margin: 0;">ANGEBOT FÜR <span id="clientNameOverlay" class="text-primary">KUNDE</span></h1>
-            <p id="overlaySubline" style="color: rgba(255,255,255,0.5); font-size: 22px; margin-top: 15px; display: none;"></p>
+    <!-- FOUNDER FORM MODAL (shown first on load) -->
+    <div class="founder-form-modal" id="founderFormModal">
+        <div class="founder-form-inner">
+            <div class="founder-form-header">
+                <div class="founder-form-header-icon">
+                    <i class="fa-solid fa-sliders"></i>
+                </div>
+                <div class="founder-form-header-text">
+                    <h2>Präsentation anpassen</h2>
+                    <p>Firmenname, Flottengröße und Logo für die personalisierte Deck.</p>
+                </div>
+            </div>
+            <div class="founder-form-body">
+                <label for="founderCompany">Firmenname</label>
+                <input type="text" id="founderCompany" placeholder="z. B. Muster Logistik GmbH">
+                <label for="founderTrucks">Flottengröße (LKW)</label>
+                <input type="number" id="founderTrucks" min="10" max="1000" step="10" value="120" placeholder="120">
+                <label>Logo (optional)</label>
+                <input type="file" id="founderLogoFile" accept="image/*">
+                <div class="founder-form-logo-upload" id="founderLogoUploadBox">
+                    <div class="founder-form-logo-upload-icon"><i class="fa-solid fa-upload"></i></div>
+                    <div class="founder-form-logo-upload-text">
+                        <h3>Logo hochladen</h3>
+                        <p>Klicken Sie hier oder ziehen Sie eine Bilddatei hierher (PNG, JPG).</p>
+                        <span class="founder-form-logo-url-toggle" id="founderLogoUrlToggle">Oder Logo-URL eingeben</span>
+                        <div class="founder-form-logo-url-wrap" id="founderLogoUrlWrap" style="display: none;">
+                            <input type="url" id="founderLogoUrl" placeholder="https://…">
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="form-btn" id="founderFormSubmit">
+                    <i class="fa-solid fa-check"></i> WEITER
+                </button>
+            </div>
         </div>
-        <button class="start-btn" onclick="startPresentation()">
-            <i class="fa-solid fa-play"></i> PRÄSENTATION STARTEN
-        </button>
     </div>
 
     <!-- STICKY BOTTOM BAR -->
@@ -696,23 +700,13 @@
         <div class="mono" style="font-size: 22px; color: var(--brand-dark);">MÖGLICHE EINSPARUNG: <span class="text-success" style="font-weight: 800;" id="stickySavings">€0</span> / MONAT</div>
     </div>
 
-    <!-- VIDEO BUBBLE -->
-    <div class="video-container" id="videoWrapper">
-        <button class="close-video" onclick="this.parentElement.style.display='none'">&times;</button>
-        <div id="videoPlaceholder" style="width: 100%; height: 100%; background: #222; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white;">
-            <i class="fa-solid fa-spinner fa-spin"></i>
-        </div>
-    </div>
-
     <!-- NAV DOTS -->
     <div class="nav-dots">
         <!-- Generated by JS -->
     </div>
 
-    <!-- ====================================================== -->
-    <!-- ================= ACT 1: VIDEO PITCH ================== -->
-    <!-- ====================================================== -->
-
+    <!-- Slide deck: one slide at a time, arrow-key navigation -->
+    <div id="slideDeck" class="slide-deck">
     <!-- Slide 1: Title -->
     <div class="slide-container dark-theme" id="slide1" style="justify-content: center; text-align: center;">
         <div style="margin-bottom: 50px;">
@@ -723,6 +717,7 @@
         
         <div style="display: flex; justify-content: center; width: 100%;">
             <div class="hero-pill" style="display: inline-flex; align-items: center; gap: 50px; background: rgba(255,255,255,0.08); padding: 40px 80px; border-radius: 100px; border: 2px solid rgba(255,255,255,0.15);">
+                <img id="logoHero" alt="" style="max-height: 48px; max-width: 160px; object-fit: contain; display: none;">
                 <span id="clientNameHero" class="hero-brand-name" style="font-family: 'Oswald'; font-size: 52px; font-weight: 700; letter-spacing: 3px;">KUNDE</span>
                 <i class="fa-solid fa-xmark hero-x" style="color: #94a3b8; font-size: 32px;"></i>
                 <span class="hero-brand-name" style="font-family: 'Oswald'; font-size: 52px; font-weight: 700; letter-spacing: 3px; color: white;"><span class="text-primary">LKW</span>.APP</span>
@@ -743,7 +738,39 @@
         </div>
     </div>
 
-    <!-- Slide 6: Intelligent Parking (moved between 2 & 4) -->
+    <!-- Slide 3: The Cost Factor -->
+    <div class="slide-container" id="slide3">
+        <div class="accent-bar"></div>
+        <h2 class="slide-title">DER KOSTENFAKTOR</h2>
+        <div class="grid-2">
+            <div>
+                <div style="margin-bottom: 50px;">
+                    <span style="background: rgba(239, 68, 68, 0.1); color: var(--danger); font-weight: 800; padding: 10px 20px; border-radius: 6px; font-size: 16px;">IST-ZUSTAND</span>
+                    <h3 style="font-size: 64px; color: var(--brand-dark); margin-top: 15px;">Ø 45 MIN. VERLUST</h3>
+                    <p>Im Durchschnitt verlieren Ihre Fahrer 45 Minuten wertvolle Lenkzeit pro Parkvorgang.</p>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 30px;">
+                    <div style="display: flex; align-items: center; gap: 16px; background: white; padding: 16px 20px; border-radius: 12px; border: 1px solid var(--border-light);">
+                        <i class="fa-solid fa-coins" style="color: var(--brand-accent); font-size: 22px; width: 30px; text-align: center;"></i>
+                        <span style="font-size: 20px;"><strong id="costPerSearch">€4,39</strong> direkte Kosten pro Suche</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 16px; background: white; padding: 16px 20px; border-radius: 12px; border: 1px solid var(--border-light);">
+                        <i class="fa-solid fa-rotate" style="color: var(--brand-accent); font-size: 22px; width: 30px; text-align: center;"></i>
+                        <span style="font-size: 20px;"><strong>4×</strong> pro Woche pro Fahrzeug</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 16px; background: white; padding: 16px 20px; border-radius: 12px; border: 1px solid rgba(239,68,68,0.2);">
+                        <i class="fa-solid fa-triangle-exclamation text-danger" style="font-size: 22px; width: 30px; text-align: center;"></i>
+                        <span style="font-size: 20px;"><strong>Compliance-Risiko:</strong> Lenk- & Ruhezeitverstöße</span>
+                    </div>
+                </div>
+            </div>
+            <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.1); height: 100%;">
+                <img src="assets/parking_chaos_aerial.jpg" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: Intelligent Parking -->
     <div class="slide-container" id="slide6">
         <h2 class="slide-title" style="justify-content: center;">INTELLIGENTES PARKLEITSYSTEM</h2>
         <div class="content-area">
@@ -778,6 +805,11 @@
                 <div style="font-size: 80px; font-family: 'Oswald'; font-weight: 700; color: var(--brand-accent);" id="truckDisplay">120</div>
                 <div class="mono" style="color: var(--text-muted); margin-bottom: 20px; font-size: 18px;">AKTIVE LKW</div>
                 <input type="range" id="truckSlider" min="10" max="1000" step="10" value="120" oninput="recalculateAll()">
+                <div style="margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border-light);">
+                    <div class="mono" style="color: var(--text-muted); margin-bottom: 8px; font-size: 16px;">KOSTEN PRO SUCHE (€)</div>
+                    <div style="font-size: 28px; font-family: 'Oswald'; font-weight: 700; color: var(--brand-dark);" id="costDisplay">4,39</div>
+                    <input type="range" id="costSlider" min="1" max="15" step="0.1" value="4.39" oninput="CONSTANTS.cost=parseFloat(this.value);document.getElementById('costDisplay').innerText=this.value.replace('.',',');recalculateAll()">
+                </div>
             </div>
 
             <div class="stat-grid">
@@ -796,74 +828,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Slide 12: Contact -->
-    <div class="slide-container dark-theme" id="slide12">
-        <div class="content-area">
-            <h2 style="font-size: 100px; margin-bottom: 30px;">KONTAKT.</h2>
-            <!-- Personalized CTA line (hidden if no name provided) -->
-            <p id="personalizedCta" style="color: #FFFFFF; font-size: 32px; margin-bottom: 40px; display: none;"></p>
-            <p id="genericCta" style="color: #FFFFFF; font-size: 32px; margin-bottom: 60px;">15 Minuten. Unverbindlich. Wir zeigen Ihnen Ihr konkretes Einsparpotenzial.</p>
-            
-            <div class="contact-row" style="display: flex; align-items: center; gap: 50px;">
-                <img src="assets/roland_moussavi_portrait.jpg" alt="Roland Moussavi" style="width: 180px; height: 180px; border-radius: 50%; object-fit: cover; border: 5px solid var(--brand-accent);">
-                <div>
-                    <h3 style="font-size: 40px; margin-bottom: 10px;">ROLAND MOUSSAVI</h3>
-                    <p style="margin: 0 0 20px 0; color: #FFFFFF; font-size: 24px;">CEO & Co-Founder</p>
-                    <a href="https://aparkado.pipedrive.com/scheduler/kWZkzkhj/lkwapp-intro-meeting-mit-roland" target="_blank" style="display: inline-flex; align-items: center; gap: 15px; background: var(--brand-accent); color: white; text-decoration: none; padding: 18px 40px; border-radius: 50px; font-family: 'Oswald', sans-serif; font-size: 24px; letter-spacing: 1px; margin-bottom: 15px; transition: all 0.2s ease; box-shadow: 0 6px 25px rgba(32, 50, 240, 0.4);">
-                        <i class="fa-solid fa-calendar-check"></i> TERMIN VEREINBAREN
-                    </a>
-                    <div style="margin-top: 10px; font-size: 20px; color: rgba(255,255,255,0.5);">r.moussavi@aparkado.de &nbsp;·&nbsp; www.lkw.app</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ====================================================== -->
-    <!-- ================ SECTION DIVIDER ====================== -->
-    <!-- ====================================================== -->
-
-    <div class="section-divider" id="sectionDivider">
-        <div class="divider-line"></div>
-        <div class="divider-label">Detaillierte Analyse</div>
-        <div class="divider-chevron"><i class="fa-solid fa-chevron-down"></i></div>
-    </div>
-
-    <!-- ====================================================== -->
-    <!-- =============== ACT 2: DEEP DIVE ====================== -->
-    <!-- ====================================================== -->
-
-    <!-- Slide 3: The Cost Factor -->
-    <div class="slide-container" id="slide3">
-        <div class="accent-bar"></div>
-        <h2 class="slide-title">DER KOSTENFAKTOR</h2>
-        <div class="grid-2">
-            <div>
-                <div style="margin-bottom: 50px;">
-                    <span style="background: rgba(239, 68, 68, 0.1); color: var(--danger); font-weight: 800; padding: 10px 20px; border-radius: 6px; font-size: 16px;">IST-ZUSTAND</span>
-                    <h3 style="font-size: 64px; color: var(--brand-dark); margin-top: 15px;">Ø 45 MIN. VERLUST</h3>
-                    <p>Im Durchschnitt verlieren Ihre Fahrer 45 Minuten wertvolle Lenkzeit pro Parkvorgang.</p>
-                </div>
-                <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 30px;">
-                    <div style="display: flex; align-items: center; gap: 16px; background: white; padding: 16px 20px; border-radius: 12px; border: 1px solid var(--border-light);">
-                        <i class="fa-solid fa-coins" style="color: var(--brand-accent); font-size: 22px; width: 30px; text-align: center;"></i>
-                        <span style="font-size: 20px;"><strong>€4,39</strong> direkte Kosten pro Suche</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 16px; background: white; padding: 16px 20px; border-radius: 12px; border: 1px solid var(--border-light);">
-                        <i class="fa-solid fa-rotate" style="color: var(--brand-accent); font-size: 22px; width: 30px; text-align: center;"></i>
-                        <span style="font-size: 20px;"><strong>4×</strong> pro Woche pro Fahrzeug</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 16px; background: white; padding: 16px 20px; border-radius: 12px; border: 1px solid rgba(239,68,68,0.2);">
-                        <i class="fa-solid fa-triangle-exclamation text-danger" style="font-size: 22px; width: 30px; text-align: center;"></i>
-                        <span style="font-size: 20px;"><strong>Compliance-Risiko:</strong> Lenk- & Ruhezeitverstöße</span>
-                    </div>
-                </div>
-            </div>
-            <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.1); height: 100%;">
-                <img src="assets/parking_chaos_aerial.jpg" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-        </div>
-    </div>
 
     <!-- Slide 5: Comparison -->
     <div class="slide-container" id="slide5">
@@ -1013,6 +977,7 @@
     <!-- Slide 11: Why LKW.APP -->
     <div class="slide-container" id="slide11">
         <h2 class="slide-title">WARUM LKW.APP?</h2>
+        <div class="slide11-boxes-wrap">
         <div class="stat-grid" style="grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 10px;">
             <div class="stat-card" style="text-align: left; border-top: 8px solid var(--success); padding: 30px;">
                 <h3 style="margin-bottom: 20px; font-size: 32px;">FÜR IHRE FAHRER</h3>
@@ -1033,18 +998,39 @@
                 </ul>
             </div>
         </div>
-        <!-- Social Proof (placeholder - fill with real logos/quotes when available) -->
-        <div style="margin-top: 30px; text-align: center;">
-            <div style="display: flex; align-items: center; justify-content: center; gap: 50px; opacity: 0.4; filter: grayscale(1);">
-                <!-- TODO: Replace with real customer logos -->
-                <div style="width: 120px; height: 50px; background: rgba(0,0,0,0.08); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--text-muted);">Logo 1</div>
-                <div style="width: 120px; height: 50px; background: rgba(0,0,0,0.08); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--text-muted);">Logo 2</div>
-                <div style="width: 120px; height: 50px; background: rgba(0,0,0,0.08); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--text-muted);">Logo 3</div>
-                <div style="width: 120px; height: 50px; background: rgba(0,0,0,0.08); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--text-muted);">Logo 4</div>
-            </div>
-            <p style="margin-top: 15px; font-size: 14px; color: var(--text-muted); font-style: italic;"><!-- TODO: Add testimonial quote here --></p>
         </div>
     </div>
+
+    <!-- Slide 12: Contact -->
+    <div class="slide-container dark-theme" id="slide12">
+        <div class="content-area">
+            <h2 style="font-size: 100px; margin-bottom: 40px;">KONTAKT.</h2>
+            <div class="contact-row" style="display: flex; align-items: center; gap: 50px;">
+                <img src="assets/roland_moussavi_portrait.jpg" alt="Roland Moussavi" style="width: 180px; height: 180px; border-radius: 50%; object-fit: cover; border: 5px solid var(--brand-accent);">
+                <div>
+                    <h3 style="font-size: 40px; margin-bottom: 10px;">ROLAND MOUSSAVI</h3>
+                    <p style="margin: 0 0 24px 0; color: #FFFFFF; font-size: 24px;">CEO & Co-Founder</p>
+                    <p style="margin: 0 0 8px 0; font-size: 20px;"><a href="mailto:r.moussavi@aparkado.de" style="color: rgba(255,255,255,0.9); text-decoration: none;">r.moussavi@aparkado.de</a></p>
+                    <p style="margin: 0 0 28px 0; font-size: 20px;"><a href="https://www.lkw.app" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.9); text-decoration: none;">www.lkw.app</a></p>
+                    <p style="margin: 0 0 16px 0; font-size: 18px; color: rgba(255,255,255,0.6);">Sie möchten einen Pilot starten?</p>
+                    <a href="https://aparkado.pipedrive.com/scheduler/kWZkzkhj/lkwapp-intro-meeting-mit-roland" target="_blank" rel="noopener" style="display: inline-block; color: var(--brand-accent); font-size: 18px; text-decoration: underline; font-weight: 600;">Pilot anfragen</a>
+                    <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px;" class="no-print">
+                        <button type="button" onclick="copyShareLink()" style="display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.25); padding: 10px 20px; border-radius: 50px; font-size: 14px; cursor: pointer;">
+                            <i class="fa-solid fa-link"></i> LINK KOPIEREN
+                        </button>
+                        <button type="button" onclick="downloadAsHtml()" style="display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.25); padding: 10px 20px; border-radius: 50px; font-size: 14px; cursor: pointer;">
+                            <i class="fa-solid fa-download"></i> ALS HTML SPEICHERN
+                        </button>
+                        <button type="button" onclick="exportAsPdf()" style="display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.25); padding: 10px 20px; border-radius: 50px; font-size: 14px; cursor: pointer;">
+                            <i class="fa-solid fa-file-pdf"></i> ALS PDF EXPORTIEREN
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div><!-- /slideDeck -->
 
     <script>
         // --- CONFIG ---
@@ -1052,13 +1038,81 @@
             searchesPerWeek: 4, weeks: 4.2, hoursLost: 0.75, cost: 4.39, co2: 5.9, transportsRatio: 0.093
         };
 
-        // --- VIDEO VARIANTS ---
-        const VIDEO_STANDARD = "https://iframe.mediadelivery.net/embed/596824/e5389aa5-ba40-4946-ae49-d54f2aaf3d29?autoplay=true&loop=false&muted=false&preload=true&responsive=true";
-        const VIDEO_ENTERPRISE = "https://iframe.mediadelivery.net/embed/596824/e5389aa5-ba40-4946-ae49-d54f2aaf3d29?autoplay=true&loop=false&muted=false&preload=true&responsive=true"; // TODO: Replace with enterprise video URL once recorded
+        // --- PRESENTATION STATE (for share/export) ---
+        window.presentationState = { company: 'KUNDE', trucks: 120, cost: 4.39, logoUrl: '' };
 
-        function getVideoUrl(trucks) {
-            if (trucks >= 200) return VIDEO_ENTERPRISE;
-            return VIDEO_STANDARD;
+        function applyLogo(logoUrl) {
+            window.presentationState.logoUrl = logoUrl || '';
+            const lh = document.getElementById('logoHero');
+            if (!lh) return;
+            if (logoUrl) {
+                lh.src = logoUrl; lh.style.display = 'block';
+            } else {
+                lh.removeAttribute('src'); lh.style.display = 'none';
+            }
+        }
+
+        function applyPresentationState(opts) {
+            const client = (opts.company || 'KUNDE').replace(/_/g, ' ');
+            const trucks = parseInt(opts.trucks) || 120;
+            const name = (opts.name || '').replace(/_/g, ' ');
+            const role = (opts.role || '').replace(/_/g, ' ');
+            const segment = (opts.segment || '').replace(/_/g, ' ');
+            const location = (opts.location || '').replace(/_/g, ' ');
+            if (opts.cost != null) {
+                CONSTANTS.cost = parseFloat(opts.cost);
+                const costSliderEl = document.getElementById('costSlider');
+                if (costSliderEl) { costSliderEl.value = CONSTANTS.cost; }
+                const costDisplayEl = document.getElementById('costDisplay');
+                if (costDisplayEl) costDisplayEl.innerText = CONSTANTS.cost.toFixed(2).replace('.', ',');
+            }
+            window.presentationState.company = client;
+            window.presentationState.trucks = trucks;
+            window.presentationState.cost = CONSTANTS.cost;
+
+            document.getElementById('clientNameHero').innerText = client;
+            document.getElementById('stickyCompany').innerText = client;
+            document.getElementById('truckSlider').value = trucks;
+            recalculateAll();
+
+            if (segment) {
+                const tagline = SEGMENT_TAGLINES[segment.toLowerCase()];
+                if (tagline) {
+                    const taglineEl = document.getElementById('segmentTagline');
+                    taglineEl.innerText = tagline; taglineEl.style.display = 'block';
+                }
+            }
+            if (opts.logoUrl) applyLogo(opts.logoUrl);
+        }
+
+        function applyFounderForm() {
+            const company = document.getElementById('founderCompany').value.trim() || 'KUNDE';
+            const trucks = document.getElementById('founderTrucks').value || 120;
+            const logoUrl = (document.getElementById('founderLogoUrl').value || '').trim();
+            const fileInput = document.getElementById('founderLogoFile');
+            window.presentationState.company = company;
+            window.presentationState.trucks = trucks;
+            document.getElementById('clientNameHero').innerText = company;
+            document.getElementById('stickyCompany').innerText = company;
+            document.getElementById('truckSlider').value = trucks;
+            recalculateAll();
+            function hideModalAndStart() {
+                document.getElementById('founderFormModal').classList.add('hidden');
+                startPresentation();
+            }
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    window.presentationState.logoUrl = e.target.result;
+                    applyLogo(e.target.result);
+                    hideModalAndStart();
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                if (logoUrl) { window.presentationState.logoUrl = logoUrl; applyLogo(logoUrl); }
+                else applyLogo('');
+                hideModalAndStart();
+            }
         }
 
         // --- SEGMENT TAGLINES ---
@@ -1072,27 +1126,27 @@
             'distribution':  'Im Distributionsverkehr summieren sich selbst kleine Suchzeiten über hunderte Stopps pro Woche.',
         };
 
-        // --- VIDEO SYNC TIMELINE (Act 1 slides only) ---
-        // --- VIDEO SYNC TIMELINE (seconds, +2s offset for Loom boot) ---
-        const SYNC = [
-            { t: 0,  id: 'slide1'  },   // 0s  - Title
-            { t: 13, id: 'slide2'  },   // 11s + 2s - Challenge
-            { t: 28, id: 'slide6'  },   // 26s + 2s - Intelligent Parking
-            { t: 42, id: 'slide4'  },   // 40s + 2s - Calculator
-            { t: 67, id: 'slide12' }    // 65s + 2s - Contact
-        ];
-
         // --- INIT & ANIMATIONS ---
+        // --- DECK NAVIGATION (arrow keys, one slide at a time) ---
+        let deckSlides = [];
+        let currentSlideIndex = 0;
+        let deckDots = [];
+
+        function goToSlide(index) {
+            const deck = document.getElementById('slideDeck');
+            if (!deck || !deckSlides.length) return;
+            currentSlideIndex = Math.max(0, Math.min(index, deckSlides.length - 1));
+            deck.style.transform = 'translateX(' + (-currentSlideIndex * 100) + 'vw)';
+            deckDots.forEach((dot, i) => dot.classList.toggle('active', i === currentSlideIndex));
+        }
+
+        function goPrev() { goToSlide(currentSlideIndex - 1); }
+        function goNext() { goToSlide(currentSlideIndex + 1); }
+
         function startPresentation() {
-            // Reveal all visible slides and the section divider
-            gsap.to(".slide-container", { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "power2.out" });
-            gsap.to("#sectionDivider", { opacity: 1, y: 0, duration: 0.8, delay: 0.3, ease: "power2.out" });
-            
-            gsap.to("#startOverlay", { opacity: 0, duration: 0.5, onComplete: () => document.getElementById('startOverlay').style.display = 'none' });
-            gsap.to("#stickyBar", { y: 0, duration: 0.5, delay: 0.5 });
-            
-            injectVideo();
-            startSyncTimer();
+            gsap.to(".slide-deck .slide-container", { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "power2.out" });
+            gsap.to("#stickyBar", { y: 0, duration: 0.5, delay: 0.3 });
+            goToSlide(0);
         }
 
         // --- CALCULATION LOGIC ---
@@ -1101,6 +1155,8 @@
         }
 
         function recalculateAll() {
+            const costSliderEl = document.getElementById('costSlider');
+            if (costSliderEl) CONSTANTS.cost = parseFloat(costSliderEl.value);
             const trucks = parseInt(document.getElementById('truckSlider').value);
             
             const searches = trucks * CONSTANTS.searchesPerWeek * CONSTANTS.weeks;
@@ -1143,30 +1199,14 @@
             document.getElementById('labelLoss').innerText = formatNumber(hours) + " Std.";
             document.getElementById('labelGain').innerText = "+" + formatNumber(hours * 0.95) + " Std.";
             
-            updateCharts();
-        }
-
-        // --- VIDEO INJECTION ---
-        function injectVideo() {
-            const wrapper = document.getElementById('videoWrapper');
-            const urlParams = new URLSearchParams(window.location.search);
-            const trucks = parseInt(urlParams.get('trucks')) || 120;
-
-            // Determine video URL: explicit override > auto-selection by fleet size
-            let videoParam = urlParams.get('video');
-            let videoUrl;
-            if (videoParam && videoParam !== 'auto') {
-                videoUrl = videoParam;
-            } else {
-                videoUrl = getVideoUrl(trucks);
-            }
+            // Slide 3: cost per search (DE locale)
+            const costPerSearchEl = document.getElementById('costPerSearch');
+            if (costPerSearchEl) costPerSearchEl.innerText = '€' + CONSTANTS.cost.toFixed(2).replace('.', ',');
+            const costDisplayEl = document.getElementById('costDisplay');
+            if (costDisplayEl) costDisplayEl.innerText = CONSTANTS.cost.toFixed(2).replace('.', ',');
+            if (window.presentationState) window.presentationState.cost = CONSTANTS.cost;
             
-            if (!videoUrl) return;
-
-            wrapper.style.display = 'block';
-            gsap.to(wrapper, { opacity: 1, duration: 0.5, delay: 0.5 });
-
-            wrapper.innerHTML = `<iframe src="${videoUrl}" loading="lazy" frameborder="0" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe>`;
+            updateCharts();
         }
 
         // --- UTILS ---
@@ -1183,25 +1223,6 @@
             });
         }
 
-        function startSyncTimer() {
-            let seconds = 0;
-            let nextIndex = 0;
-
-            // Handle t:0 immediately
-            if (SYNC[0] && SYNC[0].t === 0) {
-                document.getElementById(SYNC[0].id).scrollIntoView({ behavior: 'smooth' });
-                nextIndex = 1;
-            }
-
-            setInterval(() => {
-                seconds++;
-                if (nextIndex < SYNC.length && seconds >= SYNC[nextIndex].t) {
-                    document.getElementById(SYNC[nextIndex].id).scrollIntoView({ behavior: 'smooth' });
-                    nextIndex++;
-                }
-            }, 1000);
-        }
-        
         function updateCharts() {
             gsap.to(".chart-bar", {
                 width: (i, target) => target.getAttribute("data-width"),
@@ -1210,93 +1231,112 @@
             });
         }
 
+        function copyShareLink() {
+            const s = window.presentationState || {};
+            const company = (s.company || 'KUNDE').replace(/ /g, '_');
+            const trucks = s.trucks || 120;
+            const cost = s.cost != null ? s.cost : CONSTANTS.cost;
+            const logo = (s.logoUrl && s.logoUrl.indexOf('http') === 0) ? s.logoUrl : '';
+            const params = new URLSearchParams();
+            params.set('company', company);
+            params.set('trucks', trucks);
+            params.set('cost', cost);
+            if (logo) params.set('logo', logo);
+            params.set('skipForm', '1');
+            const url = window.location.origin + window.location.pathname + '?' + params.toString();
+            navigator.clipboard.writeText(url).then(() => alert('Link in Zwischenablage kopiert.')).catch(() => prompt('Link kopieren:', url));
+        }
+
+        function downloadAsHtml() {
+            const s = window.presentationState || {};
+            const state = { company: s.company || 'KUNDE', trucks: s.trucks || 120, cost: s.cost != null ? s.cost : CONSTANTS.cost, logoUrl: s.logoUrl || '' };
+            let html = document.documentElement.outerHTML;
+            const modalStart = html.indexOf('<div class="founder-form-modal" id="founderFormModal">');
+            const overlayComment = html.indexOf('<!-- START OVERLAY -->');
+            if (modalStart !== -1 && overlayComment > modalStart) {
+                html = html.slice(0, modalStart) + html.slice(overlayComment);
+            }
+            const scriptMarker = '<script>\n        // --- CONFIG ---';
+            const stateScript = '<script>\n        window.__EXPORTED_STATE__ = ' + JSON.stringify(state) + ';\n        // --- CONFIG ---';
+            html = html.replace(scriptMarker, stateScript);
+            const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'lkw-presentation-' + (state.company || 'kunde').replace(/\s+/g, '-') + '.html';
+            a.click();
+            URL.revokeObjectURL(a.href);
+        }
+
+        function exportAsPdf() {
+            window.print();
+        }
+
         // --- INIT LOAD ---
         window.addEventListener('DOMContentLoaded', () => {
-            const params = new URLSearchParams(window.location.search);
-
-            // --- Parse all URL parameters ---
-            const client   = (params.get('company') || "KUNDE").replace(/_/g, ' ');
-            const trucks   = params.get('trucks') || 120;
-            const name     = (params.get('name') || "").replace(/_/g, ' ');
-            const role     = (params.get('role') || "").replace(/_/g, ' ');
-            const segment  = (params.get('segment') || "").replace(/_/g, ' ');
-            const location = (params.get('location') || "").replace(/_/g, ' ');
-
-            // --- Overlay personalization ---
-            if (name) {
-                // Fully personalized overlay
-                document.getElementById('overlayHeading').innerHTML = 'ERSTELLT FÜR <span class="text-primary">' + name.toUpperCase() + '</span>';
-                
-                // Build subtitle parts (role | company | location), skipping empty values
-                const subtitleParts = [role, client, location].filter(p => p && p !== "KUNDE");
-                if (subtitleParts.length > 0) {
-                    const sublineEl = document.getElementById('overlaySubline');
-                    sublineEl.innerText = subtitleParts.join('  |  ');
-                    sublineEl.style.display = 'block';
-                }
-            } else {
-                // Fallback: company-only overlay (original behavior)
-                document.getElementById('clientNameOverlay').innerText = client;
+            if (window.__EXPORTED_STATE__) {
+                applyPresentationState(window.__EXPORTED_STATE__);
+                const modal = document.getElementById('founderFormModal');
+                if (modal) modal.classList.add('hidden');
+                startPresentation();
             }
 
-            // --- Title slide ---
-            document.getElementById('clientNameHero').innerText = client;
-
-            // --- Sticky bar ---
-            document.getElementById('stickyCompany').innerText = client;
-
-            // --- Calculator ---
-            document.getElementById('truckSlider').value = trucks;
-            recalculateAll();
-
-            // --- Segment tagline ---
-            if (segment) {
-                const taglineKey = segment.toLowerCase();
-                const tagline = SEGMENT_TAGLINES[taglineKey];
-                if (tagline) {
-                    const taglineEl = document.getElementById('segmentTagline');
-                    taglineEl.innerText = tagline;
-                    taglineEl.style.display = 'block';
+            // --- Deck init: slides from #slideDeck only ---
+            const deck = document.getElementById('slideDeck');
+            if (deck) {
+                deckSlides = Array.from(deck.querySelectorAll('.slide-container'));
+                deck.style.transform = 'translateX(0)';
+                deckDots = [];
+                const dotContainer = document.querySelector('.nav-dots');
+                if (dotContainer) {
+                    deckSlides.forEach((slide, i) => {
+                        const num = document.createElement('div'); num.className = 'slide-number'; num.textContent = i + 1; slide.appendChild(num);
+                        const dot = document.createElement('div'); dot.className = 'nav-dot'; if (i === 0) dot.classList.add('active'); dot.onclick = () => goToSlide(i); dotContainer.appendChild(dot); deckDots.push(dot);
+                    });
                 }
             }
 
-            // --- Personalized CTA on contact slide ---
-            if (name) {
-                const firstName = name.split(' ')[0];
-                const ctaEl = document.getElementById('personalizedCta');
-                ctaEl.innerText = firstName + ', lassen Sie uns gemeinsam prüfen, welches Potenzial in Ihrer Flotte steckt.';
-                ctaEl.style.display = 'block';
-                document.getElementById('genericCta').style.display = 'none';
-            }
-
-            // --- Nav dots & slide numbers ---
-            const dotContainer = document.querySelector('.nav-dots');
-            let slideNum = 1;
-            let isAct2 = false;
-
-            document.querySelectorAll('.slide-container').forEach((slide) => {
-                // Detect when we cross into Act 2 (first slide after the divider = slide3)
-                if (slide.id === 'slide3' && !isAct2) {
-                    isAct2 = true;
-                    // Insert a visual gap in the nav dots
-                    const gap = document.createElement('div');
-                    gap.className = 'nav-dot-divider';
-                    dotContainer.appendChild(gap);
-                }
-
-                // Add slide number label
-                const num = document.createElement('div');
-                num.className = 'slide-number';
-                num.textContent = slideNum++;
-                slide.appendChild(num);
-
-                // Add nav dot
-                const dot = document.createElement('div');
-                dot.className = 'nav-dot';
-                if(slide.id === 'slide1') dot.classList.add('active');
-                dot.onclick = () => slide.scrollIntoView({behavior:'smooth'});
-                dotContainer.appendChild(dot);
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') { e.preventDefault(); goPrev(); }
+                if (e.key === 'ArrowRight') { e.preventDefault(); goNext(); }
             });
+
+            if (window.__EXPORTED_STATE__) return;
+            const params = new URLSearchParams(window.location.search);
+            const client   = (params.get('company') || 'KUNDE').replace(/_/g, ' ');
+            const trucks   = params.get('trucks') || 120;
+            const name     = (params.get('name') || '').replace(/_/g, ' ');
+            const role     = (params.get('role') || '').replace(/_/g, ' ');
+            const segment  = (params.get('segment') || '').replace(/_/g, ' ');
+            const location = (params.get('location') || '').replace(/_/g, ' ');
+            const skipForm = params.get('skipForm') || params.get('client');
+            const costParam = params.get('cost');
+            const logoParam = params.get('logo');
+
+            if (skipForm) {
+                document.getElementById('founderFormModal').classList.add('hidden');
+                applyPresentationState({
+                    company: client, trucks, name, role, segment, location,
+                    cost: costParam != null ? costParam : undefined,
+                    logoUrl: logoParam || ''
+                });
+                startPresentation();
+            } else {
+                document.getElementById('founderCompany').value = client;
+                document.getElementById('founderTrucks').value = trucks;
+                if (logoParam) document.getElementById('founderLogoUrl').value = logoParam;
+                document.getElementById('founderFormSubmit').addEventListener('click', applyFounderForm);
+                var urlWrap = document.getElementById('founderLogoUrlWrap');
+                var urlToggle = document.getElementById('founderLogoUrlToggle');
+                if (urlWrap && urlToggle) {
+                    urlToggle.addEventListener('click', function(e) { e.preventDefault(); e.stopPropagation(); urlWrap.style.display = urlWrap.style.display === 'none' ? 'block' : 'none'; });
+                }
+                document.getElementById('founderLogoUploadBox').addEventListener('click', function(e) {
+                    if (e.target.closest('#founderLogoUrlWrap')) return;
+                    document.getElementById('founderLogoFile').click();
+                });
+            }
+
+            // Nav dots & slide numbers already built above (deck init)
         });
 
     </script>
