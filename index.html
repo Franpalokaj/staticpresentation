@@ -345,10 +345,17 @@
            PRINT — Export as PDF (one slide per page)
            ========================================================= */
         @media print {
-            html, body { overflow: visible !important; height: auto !important; margin: 0; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            @page { size: landscape; margin: 0; }
+            html, body { overflow: visible !important; height: auto !important; margin: 0 !important; padding: 0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             .nav-dots, .no-print { visibility: hidden !important; display: none !important; }
             .slide-deck { position: relative !important; transform: none !important; height: auto !important; flex-direction: column !important; }
-            .slide-deck .slide-container { flex: none !important; width: 100% !important; min-width: 100% !important; height: 100vh !important; min-height: 100vh !important; page-break-after: always; opacity: 1 !important; transform: none !important; }
+            .slide-deck .slide-container {
+                flex: none !important; width: 100vw !important; min-width: 100vw !important;
+                height: 100vh !important; min-height: 100vh !important; max-height: 100vh !important;
+                page-break-after: always; page-break-inside: avoid;
+                opacity: 1 !important; transform: none !important;
+                box-sizing: border-box !important;
+            }
             .slide-deck .slide-container:last-child { page-break-after: auto; }
         }
 
