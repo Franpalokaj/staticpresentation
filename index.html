@@ -342,27 +342,33 @@
         .dark-theme .slide-number { color: rgba(255,255,255,0.25); }
 
         /* =========================================================
-           PRINT — Export as PDF (one slide per page)
+           PRINT — Export as PDF (one slide per page, same as screen)
            ========================================================= */
         @media print {
-            @page { size: landscape; margin: 0; }
+            @page { size: 1280px 720px; margin: 0; }
             html, body { overflow: visible !important; height: auto !important; margin: 0 !important; padding: 0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             .nav-dots, .no-print { visibility: hidden !important; display: none !important; }
             .slide-deck { position: relative !important; transform: none !important; height: auto !important; flex-direction: column !important; }
             .slide-deck .slide-container {
-                flex: none !important; width: 100vw !important; min-width: 100vw !important;
-                height: 100vh !important; min-height: 100vh !important; max-height: 100vh !important;
+                flex: none !important; width: 1280px !important; min-width: 1280px !important;
+                height: 720px !important; min-height: 720px !important; max-height: 720px !important;
+                padding: 60px 80px !important;
                 page-break-after: always; page-break-inside: avoid;
                 opacity: 1 !important; transform: none !important;
                 box-sizing: border-box !important;
             }
             .slide-deck .slide-container:last-child { page-break-after: auto; }
+            /* Keep desktop layout in print: grids, padding, typography */
+            .grid-2 { grid-template-columns: 1fr 1fr !important; gap: 80px !important; }
+            .stat-grid { grid-template-columns: 1fr 1fr 1fr !important; gap: 30px !important; }
+            .slide-title { flex-wrap: nowrap !important; }
+            .slide-title::after { display: block !important; }
         }
 
         /* =========================================================
-           RESPONSIVE — TABLET (max-width: 1024px)
+           RESPONSIVE — TABLET (max-width: 1024px) — screen only
            ========================================================= */
-        @media (max-width: 1024px) {
+        @media screen and (max-width: 1024px) {
             :root {
                 --slide-width: 100vw;
                 --slide-height: 100vh;
@@ -392,9 +398,9 @@
         }
 
         /* =========================================================
-           RESPONSIVE — MOBILE (max-width: 768px)
+           RESPONSIVE — MOBILE (max-width: 768px) — screen only
            ========================================================= */
-        @media (max-width: 768px) {
+        @media screen and (max-width: 768px) {
             .slide-container {
                 padding: 32px 20px !important;
             }
@@ -641,9 +647,9 @@
         }
 
         /* =========================================================
-           RESPONSIVE — SMALL MOBILE (max-width: 400px)
+           RESPONSIVE — SMALL MOBILE (max-width: 400px) — screen only
            ========================================================= */
-        @media (max-width: 400px) {
+        @media screen and (max-width: 400px) {
             .slide-container {
                 padding: 24px 14px !important;
             }
