@@ -347,15 +347,16 @@
         @media print {
             @page { size: 1280px 720px; margin: 0; }
             html, body { overflow: visible !important; height: auto !important; margin: 0 !important; padding: 0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-            .nav-dots, .no-print { visibility: hidden !important; display: none !important; }
+            .nav-dots, .no-print, .sticky-bar { visibility: hidden !important; display: none !important; }
             .slide-deck { position: relative !important; transform: none !important; height: auto !important; flex-direction: column !important; }
             .slide-deck .slide-container {
                 flex: none !important; width: 1280px !important; min-width: 1280px !important;
                 height: 720px !important; min-height: 720px !important; max-height: 720px !important;
-                padding: 60px 80px !important;
+                padding: 44px 80px 40px !important;
                 page-break-after: always; page-break-inside: avoid;
                 opacity: 1 !important; transform: none !important;
                 box-sizing: border-box !important;
+                overflow: visible !important;
             }
             .slide-deck .slide-container:last-child { page-break-after: auto; }
             /* Keep desktop layout in print: grids, padding, typography */
@@ -363,6 +364,40 @@
             .stat-grid { grid-template-columns: 1fr 1fr 1fr !important; gap: 30px !important; }
             .slide-title { flex-wrap: nowrap !important; }
             .slide-title::after { display: block !important; }
+            /* --- Slide 3: reduce spacing so all 3 info cards fit --- */
+            #slide3 .grid-2 { gap: 50px !important; }
+            #slide3 .grid-2 > div:first-child > div:first-child { margin-bottom: 20px !important; }
+            #slide3 .grid-2 > div:first-child > div:first-child h3 { font-size: 48px !important; margin-top: 10px !important; }
+            #slide3 .grid-2 > div:first-child > div:first-child p { font-size: 20px !important; }
+            #slide3 .grid-2 > div:first-child > div:last-child { margin-top: 12px !important; gap: 10px !important; }
+            #slide3 .grid-2 > div:first-child > div:last-child > div { padding: 10px 16px !important; }
+            #slide3 .grid-2 > div:first-child > div:last-child span { font-size: 17px !important; }
+
+            /* --- Slide 4: hide sliders (not interactive in PDF), compact layout --- */
+            #slide4 .slide-title { margin-bottom: 0 !important; }
+            #slide4 .intro-text { margin-bottom: 8px !important; font-size: 20px !important; }
+            #slide4 input[type=range] { display: none !important; }
+            #slide4 .slider-container { padding: 20px 30px !important; margin-bottom: 14px !important; }
+            #slide4 .slider-container #truckDisplay { font-size: 54px !important; }
+            #slide4 .slider-container .mono { margin-bottom: 10px !important; font-size: 15px !important; }
+            #slide4 .slider-container > div:last-child { margin-top: 16px !important; padding-top: 14px !important; }
+            #slide4 .slider-container > div:last-child > div:first-child { font-size: 14px !important; }
+            #slide4 .slider-container > div:last-child > div:nth-child(2) { font-size: 24px !important; }
+            #slide4 .stat-grid { margin-top: 0 !important; gap: 16px !important; }
+            #slide4 .stat-card { padding: 18px 14px !important; }
+            #slide4 .stat-value { font-size: 36px !important; margin-bottom: 4px !important; }
+            #slide4 .stat-label { font-size: 12px !important; }
+
+            /* --- Slide 5: tighter chart spacing so DAS ERGEBNIS fits --- */
+            #slide5 .content-area > div:first-child { margin-bottom: 20px !important; }
+            #slide5 .content-area > div:nth-child(2) { margin-bottom: 24px !important; }
+            #slide5 .content-area > div:first-child > div:first-child,
+            #slide5 .content-area > div:nth-child(2) > div:first-child { margin-bottom: 10px !important; font-size: 20px !important; }
+            #slide5 .content-area > div:first-child > div:last-child,
+            #slide5 .content-area > div:nth-child(2) > div:last-child { height: 54px !important; }
+            #slide5 .content-area > div:last-child { padding: 22px 28px !important; }
+            #slide5 .content-area > div:last-child h3 { font-size: 24px !important; margin-bottom: 6px !important; }
+            #slide5 .content-area > div:last-child p { font-size: 20px !important; }
         }
 
         /* =========================================================
