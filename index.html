@@ -367,6 +367,8 @@
             /* --- Slide 6: swap video for poster image in PDF --- */
             #slide6 .slide6-video { display: none !important; }
             #slide6 .slide6-poster { display: block !important; }
+            #slide6 .grid-2 > div:last-child { min-height: 320px !important; }
+            #slide6 .slide6-poster { min-height: 280px !important; width: auto !important; object-fit: contain !important; }
 
             /* --- Slide 3: reduce spacing so all 3 info cards fit --- */
             #slide3 .grid-2 { gap: 50px !important; }
@@ -402,6 +404,14 @@
             #slide5 .content-area > div:last-child { padding: 22px 28px !important; }
             #slide5 .content-area > div:last-child h3 { font-size: 24px !important; margin-bottom: 6px !important; }
             #slide5 .content-area > div:last-child p { font-size: 20px !important; }
+
+            /* --- Slides 7 & 10: ensure grid and image column have height in PDF --- */
+            #slide7 .grid-2, #slide10 .grid-2 { min-height: 380px !important; }
+            #slide7 .grid-2 > div:last-child, #slide10 .grid-2 > div:last-child { min-height: 280px !important; }
+
+            /* --- Slide 11: Warum LKW.APP — title line and card colors in print --- */
+            #slide11 .slide-title::after { height: 2px !important; min-height: 2px !important; }
+            #slide11 .slide11-boxes-wrap .stat-card { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
         }
 
         /* =========================================================
@@ -887,7 +897,7 @@
             <div style="display: flex; align-items: center; justify-content: center; position: relative; min-height: 0; height: 100%; padding: 0; margin: 0;">
                 <!-- Video: portrait (9:16), scale iframe to crop any letterboxing from player -->
                 <div class="slide6-video" style="position: relative; width: auto; max-width: 100%; height: 100%; max-height: 100%; aspect-ratio: 9/16; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
-                    <iframe class="slide6-iframe" src="https://iframe.mediadelivery.net/embed/596824/5477b107-7171-475d-a337-9bc3346fcd1f?autoplay=true&loop=true&muted=true&preload=true&responsive=true" loading="lazy" style="border:0;position:absolute;top:0;left:0;height:100%;width:100%;" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe>
+                    <iframe class="slide6-iframe" src="https://iframe.mediadelivery.net/embed/596824/e8859463-d43e-4b5e-86bb-0fd1bca48f0a?autoplay=false&loop=true&muted=false&preload=true&responsive=true" loading="lazy" style="border:0;position:absolute;top:0;left:0;height:100%;width:100%;" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe>
                 </div>
                 <!-- PDF fallback: static image shown only in print -->
                 <img class="slide6-poster" src="assets/app_video_poster.png" alt="LKW.APP Demo" style="display: none; max-height: 100%; width: auto; aspect-ratio: 9/16; object-fit: contain; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
