@@ -59,6 +59,7 @@
             flex: 0 0 100vw;
             width: 100vw;
             min-width: 100vw;
+            padding-bottom: 130px; /* clear space for sticky bar so video/content isn't overlapped */
         }
 
         /* --- SLIDE CONTAINER --- */
@@ -165,8 +166,8 @@
         /* --- SLIDE 6 FIXES --- */
         #slide6 .slide6-poster { display: none; }
         #slide6 .slide6-video { display: block; }
-        /* Scale iframe to crop horizontal letterboxing from Bunny player */
-        #slide6 .slide6-iframe { transform: scale(1.08); transform-origin: center center; }
+        /* Slight scale to crop letterboxing; keep low to avoid top/bottom cutoff */
+        #slide6 .slide6-iframe { transform: scale(1.03); transform-origin: center center; }
 
         /* --- INTERACTIVE SLIDER --- */
         .slider-container {
@@ -346,8 +347,8 @@
            ========================================================= */
         @media print {
             @page { size: 1280px 720px; margin: 0; }
-            html, body { overflow: visible !important; height: auto !important; margin: 0 !important; padding: 0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-            .nav-dots, .no-print, .sticky-bar { visibility: hidden !important; display: none !important; }
+            html, body { background: #F6F6F6 !important; overflow: visible !important; height: auto !important; margin: 0 !important; padding: 0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .nav-dots, .no-print, .sticky-bar, .founder-form-modal { visibility: hidden !important; display: none !important; }
             .slide-deck { position: relative !important; transform: none !important; height: auto !important; flex-direction: column !important; }
             .slide-deck .slide-container {
                 flex: none !important; width: 1280px !important; min-width: 1280px !important;
@@ -356,7 +357,8 @@
                 page-break-after: always; page-break-inside: avoid;
                 opacity: 1 !important; transform: none !important;
                 box-sizing: border-box !important;
-                overflow: visible !important;
+                overflow: hidden !important;
+                isolation: isolate !important;
             }
             .slide-deck .slide-container:last-child { page-break-after: auto; }
             /* Keep desktop layout in print: grids, padding, typography */
@@ -364,11 +366,12 @@
             .stat-grid { grid-template-columns: 1fr 1fr 1fr !important; gap: 30px !important; }
             .slide-title { flex-wrap: nowrap !important; }
             .slide-title::after { display: block !important; }
-            /* --- Slide 6: swap video for poster image in PDF --- */
+            /* --- Slide 6: swap video for poster image in PDF; fix white slide + contain poster --- */
             #slide6 .slide6-video { display: none !important; }
             #slide6 .slide6-poster { display: block !important; }
-            #slide6 .grid-2 > div:last-child { min-height: 320px !important; }
-            #slide6 .slide6-poster { min-height: 280px !important; width: auto !important; object-fit: contain !important; }
+            #slide6 .grid-2 { min-height: 380px !important; }
+            #slide6 .grid-2 > div:last-child { min-height: 320px !important; overflow: hidden !important; }
+            #slide6 .slide6-poster { min-height: 280px !important; max-width: 100% !important; max-height: 100% !important; width: auto !important; object-fit: contain !important; }
 
             /* --- Slide 3: reduce spacing so all 3 info cards fit --- */
             #slide3 .grid-2 { gap: 50px !important; }
