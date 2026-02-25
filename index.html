@@ -162,11 +162,9 @@
         #slide4 .stat-value { font-size: 44px; margin-bottom: 8px; }
         #slide4 .stat-label { font-size: 13px; }
 
-        /* --- SLIDE 6 FIXES (CENTERED) --- */
-        #slide6 { justify-content: flex-start; }
-        #slide6 .content-area { display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%; height: 100%; }
-        #slide6 .stat-grid { width: 100%; max-width: 1200px; align-items: stretch; }
-        #slide6 .stat-card { display: flex; flex-direction: column; justify-content: flex-start; }
+        /* --- SLIDE 6 FIXES --- */
+        #slide6 .slide6-poster { display: none; }
+        #slide6 .slide6-video { display: block; }
 
         /* --- INTERACTIVE SLIDER --- */
         .slider-container {
@@ -364,6 +362,10 @@
             .stat-grid { grid-template-columns: 1fr 1fr 1fr !important; gap: 30px !important; }
             .slide-title { flex-wrap: nowrap !important; }
             .slide-title::after { display: block !important; }
+            /* --- Slide 6: swap video for poster image in PDF --- */
+            #slide6 .slide6-video { display: none !important; }
+            #slide6 .slide6-poster { display: block !important; }
+
             /* --- Slide 3: reduce spacing so all 3 info cards fit --- */
             #slide3 .grid-2 { gap: 50px !important; }
             #slide3 .grid-2 > div:first-child > div:first-child { margin-bottom: 20px !important; }
@@ -818,30 +820,6 @@
         </div>
     </div>
 
-    <!-- Slide 6: Intelligent Parking -->
-    <div class="slide-container" id="slide6">
-        <h2 class="slide-title" style="justify-content: center;">INTELLIGENTES PARKLEITSYSTEM</h2>
-        <div class="content-area">
-            <div class="stat-grid" style="width: 100%;">
-                <div class="stat-card" style="padding: 20px;">
-                    <i class="fa-solid fa-microchip text-primary" style="font-size: 40px; margin-bottom: 20px;"></i>
-                    <h3 style="margin-bottom: 10px;">PLANBARE STELLPLÄTZE</h3>
-                    <p style="font-size: 18px;">KI-Algorithmen analysieren historische Daten und sagen die Belegung Stunden im Voraus vorher.</p>
-                </div>
-                <div class="stat-card" style="padding: 20px;">
-                    <i class="fa-solid fa-users-viewfinder text-primary" style="font-size: 40px; margin-bottom: 20px;"></i>
-                    <h3 style="margin-bottom: 10px;">VERLÄSSLICHE DATEN</h3>
-                    <p style="font-size: 18px;">Live-Meldungen von über 85.000 aktiven Fahrern validieren und aktualisieren das Netzwerk kontinuierlich.</p>
-                </div>
-                <div class="stat-card" style="padding: 20px;">
-                    <i class="fa-solid fa-route text-primary" style="font-size: 40px; margin-bottom: 20px;"></i>
-                    <h3 style="margin-bottom: 10px;">OPTIMIERTE ROUTEN</h3>
-                    <p style="font-size: 18px;">Dynamische Routenplanung, die sich an Lenkzeiten und Parkverfügbarkeit entlang der Strecke anpasst.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Slide 4: Interactive Calculator -->
     <section class="slide-container" id="slide4">
         <div class="slide-bg-pattern"></div>
@@ -876,6 +854,44 @@
             </div>
         </div>
     </section>
+
+    <!-- Slide 6: Intelligent Parking -->
+    <div class="slide-container" id="slide6">
+        <h2 class="slide-title">INTELLIGENTES PARKLEITSYSTEM</h2>
+        <div class="grid-2" style="gap: 60px;">
+            <div style="display: flex; flex-direction: column; justify-content: center; gap: 20px;">
+                <div class="stat-card" style="padding: 20px; text-align: left;">
+                    <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 8px;">
+                        <i class="fa-solid fa-microchip text-primary" style="font-size: 24px;"></i>
+                        <h3 style="margin-bottom: 0; font-size: 20px;">PLANBARE STELLPLÄTZE</h3>
+                    </div>
+                    <p style="font-size: 17px; margin: 0;">KI-Algorithmen analysieren historische Daten und sagen die Belegung Stunden im Voraus vorher.</p>
+                </div>
+                <div class="stat-card" style="padding: 20px; text-align: left;">
+                    <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 8px;">
+                        <i class="fa-solid fa-users-viewfinder text-primary" style="font-size: 24px;"></i>
+                        <h3 style="margin-bottom: 0; font-size: 20px;">VERLÄSSLICHE DATEN</h3>
+                    </div>
+                    <p style="font-size: 17px; margin: 0;">Live-Meldungen von über 85.000 aktiven Fahrern validieren und aktualisieren das Netzwerk kontinuierlich.</p>
+                </div>
+                <div class="stat-card" style="padding: 20px; text-align: left;">
+                    <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 8px;">
+                        <i class="fa-solid fa-route text-primary" style="font-size: 24px;"></i>
+                        <h3 style="margin-bottom: 0; font-size: 20px;">OPTIMIERTE ROUTEN</h3>
+                    </div>
+                    <p style="font-size: 17px; margin: 0;">Dynamische Routenplanung, die sich an Lenkzeiten und Parkverfügbarkeit entlang der Strecke anpasst.</p>
+                </div>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center; position: relative;">
+                <!-- Video: looped app demo (screen only) -->
+                <div class="slide6-video" style="position: relative; width: 100%; padding-top: 56.25%; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
+                    <iframe src="https://iframe.mediadelivery.net/embed/596824/7bed8e56-2661-4feb-aa60-2b697f8f7fc9?autoplay=true&loop=true&muted=true&preload=true&responsive=true" loading="lazy" style="border:0;position:absolute;top:0;left:0;height:100%;width:100%;" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe>
+                </div>
+                <!-- PDF fallback: static image shown only in print -->
+                <img class="slide6-poster" src="assets/app_video_poster.png" alt="LKW.APP Demo" style="display: none; max-height: 100%; max-width: 100%; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
+            </div>
+        </div>
+    </div>
 
     <!-- Slide 5: Comparison -->
     <div class="slide-container" id="slide5">
