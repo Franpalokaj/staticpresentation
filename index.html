@@ -879,6 +879,39 @@
         </div>
     </section>
 
+    <!-- Slide 5: Comparison -->
+    <div class="slide-container" id="slide5">
+        <div class="accent-bar"></div>
+        <h2 class="slide-title" data-i18n="slide5_title">KAPAZITÄTEN FREISETZEN</h2>
+        <div class="content-area">
+            <!-- Animated Charts -->
+            <div style="margin-bottom: 40px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: 700; font-size: 22px;">
+                    <span class="text-danger" data-i18n="slide5_today">HEUTE (Verlust)</span>
+                    <span id="labelLoss">1.512 Std.</span>
+                </div>
+                <div style="width: 100%; height: 70px; background: #e5e7eb; border-radius: 8px; overflow: hidden;">
+                    <div class="chart-bar" style="width: 0%; height: 100%; background: var(--danger); display: flex; align-items: center; padding-left: 30px; color: white; font-weight: 700; font-size: 20px;" data-width="85%" data-i18n="slide5_chart_loss">Unproduktive Suchzeit (Gesamtflotte)</div>
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 60px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: 700; font-size: 22px;">
+                    <span class="text-success" data-i18n="slide5_with_app">MIT LKW.APP</span>
+                    <span id="labelGain">+1.436 Std.</span>
+                </div>
+                <div style="width: 100%; height: 70px; background: #e5e7eb; border-radius: 8px; overflow: hidden;">
+                    <div class="chart-bar" style="width: 0%; height: 100%; background: var(--success); display: flex; align-items: center; padding-left: 30px; color: white; font-weight: 700; font-size: 20px;" data-width="100%" data-i18n="slide5_chart_gain">Produktiv nutzbare Lenkzeit</div>
+                </div>
+            </div>
+            
+            <div style="background: white; border: 2px solid var(--success); padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 10px 40px rgba(16, 185, 129, 0.1);">
+                <h3 style="margin-bottom: 10px; color: var(--success); font-size: 32px;" data-i18n="slide5_result">DAS ERGEBNIS</h3>
+                <p style="margin: 0; font-size: 28px;"><span data-i18n="slide5_result_para">Die deutliche Reduzierung der Suchzeit ermöglicht</span> <strong class="text-success" id="transportsGained">+14 zusätzliche Transporte</strong> <span data-i18n="slide5_per_month">pro Monat.</span></p>
+            </div>
+        </div>
+    </div>
+
     <!-- Slide 6: Intelligent Parking -->
     <div class="slide-container" id="slide6">
         <h2 class="slide-title" data-i18n="slide6_title">INTELLIGENTES PARKLEITSYSTEM</h2>
@@ -913,39 +946,6 @@
                 </div>
                 <!-- PDF fallback: static image shown only in print -->
                 <img class="slide6-poster" src="assets/app_video_poster.png" alt="LKW.APP Demo" style="display: none; max-height: 100%; width: auto; aspect-ratio: 9/16; object-fit: contain; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
-            </div>
-        </div>
-    </div>
-
-    <!-- Slide 5: Comparison -->
-    <div class="slide-container" id="slide5">
-        <div class="accent-bar"></div>
-        <h2 class="slide-title" data-i18n="slide5_title">KAPAZITÄTEN FREISETZEN</h2>
-        <div class="content-area">
-            <!-- Animated Charts -->
-            <div style="margin-bottom: 40px;">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: 700; font-size: 22px;">
-                    <span class="text-danger" data-i18n="slide5_today">HEUTE (Verlust)</span>
-                    <span id="labelLoss">1.512 Std.</span>
-                </div>
-                <div style="width: 100%; height: 70px; background: #e5e7eb; border-radius: 8px; overflow: hidden;">
-                    <div class="chart-bar" style="width: 0%; height: 100%; background: var(--danger); display: flex; align-items: center; padding-left: 30px; color: white; font-weight: 700; font-size: 20px;" data-width="85%" data-i18n="slide5_chart_loss">Unproduktive Suchzeit (Gesamtflotte)</div>
-                </div>
-            </div>
-            
-            <div style="margin-bottom: 60px;">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: 700; font-size: 22px;">
-                    <span class="text-success" data-i18n="slide5_with_app">MIT LKW.APP</span>
-                    <span id="labelGain">+1.436 Std.</span>
-                </div>
-                <div style="width: 100%; height: 70px; background: #e5e7eb; border-radius: 8px; overflow: hidden;">
-                    <div class="chart-bar" style="width: 0%; height: 100%; background: var(--success); display: flex; align-items: center; padding-left: 30px; color: white; font-weight: 700; font-size: 20px;" data-width="100%" data-i18n="slide5_chart_gain">Produktiv nutzbare Lenkzeit</div>
-                </div>
-            </div>
-            
-            <div style="background: white; border: 2px solid var(--success); padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 10px 40px rgba(16, 185, 129, 0.1);">
-                <h3 style="margin-bottom: 10px; color: var(--success); font-size: 32px;" data-i18n="slide5_result">DAS ERGEBNIS</h3>
-                <p style="margin: 0; font-size: 28px;"><span data-i18n="slide5_result_para">Die deutliche Reduzierung der Suchzeit ermöglicht</span> <strong class="text-success" id="transportsGained">+14 zusätzliche Transporte</strong> <span data-i18n="slide5_per_month">pro Monat.</span></p>
             </div>
         </div>
     </div>
@@ -1109,6 +1109,7 @@
                             <i class="fa-solid fa-file-pdf"></i> <span data-i18n="btn_export_pdf">ALS PDF EXPORTIEREN</span>
                         </button>
                     </div>
+                    <p class="no-print" style="font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 12px; margin-bottom: 0;"><span data-i18n="pdf_export_tip">Tipp: Für PDF Chrome nutzen, Hintergrundgrafiken aktivieren.</span></p>
                 </div>
             </div>
         </div>
@@ -1228,6 +1229,7 @@
                 btn_copy_link: 'LINK KOPIEREN',
                 btn_download_html: 'ALS HTML SPEICHERN',
                 btn_export_pdf: 'ALS PDF EXPORTIEREN',
+                pdf_export_tip: 'Tipp: Für PDF Chrome nutzen, Hintergrundgrafiken aktivieren.',
                 alert_link_copied: 'Link in Zwischenablage kopiert.',
                 hours_short: ' Std.',
                 cost_per_month_ctx: '/Monat bei',
@@ -1333,6 +1335,7 @@
                 btn_copy_link: 'COPY LINK',
                 btn_download_html: 'SAVE AS HTML',
                 btn_export_pdf: 'EXPORT AS PDF',
+                pdf_export_tip: 'Tip: For PDF use Chrome and enable background graphics.',
                 alert_link_copied: 'Link copied to clipboard.',
                 hours_short: ' hrs',
                 cost_per_month_ctx: '/month at',
