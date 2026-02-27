@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LKW.APP Strategisches Angebot</title>
+    <!-- Open Graph / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="LKW.APP Strategisches Angebot">
+    <meta property="og:description" content="Lenkzeiten maximieren. Suchverkehr eliminieren. Weniger Suche, mehr Lenkzeit — messbar ab Tag 1.">
+    <meta property="og:image" content="/assets/linkedinog.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="/assets/linkedinog.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Oswald:wght@500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -727,30 +736,30 @@
                     <i class="fa-solid fa-sliders"></i>
                 </div>
                 <div class="founder-form-header-text">
-                    <h2>Präsentation anpassen</h2>
-                    <p>Firmenname, Flottengröße und Logo für die personalisierte Deck.</p>
+                    <h2 data-i18n="form_title">Präsentation anpassen</h2>
+                    <p data-i18n="form_subtitle">Firmenname, Flottengröße und Logo für die personalisierte Deck.</p>
                 </div>
             </div>
             <div class="founder-form-body">
-                <label for="founderCompany">Firmenname</label>
-                <input type="text" id="founderCompany" placeholder="z. B. Muster Logistik GmbH">
-                <label for="founderTrucks">Flottengröße (LKW)</label>
+                <label for="founderCompany" data-i18n="form_company">Firmenname</label>
+                <input type="text" id="founderCompany" data-i18n-placeholder="form_company_ph" placeholder="z. B. Muster Logistik GmbH">
+                <label for="founderTrucks" data-i18n="form_trucks">Flottengröße (LKW)</label>
                 <input type="number" id="founderTrucks" min="10" max="1000" step="10" value="120" placeholder="120">
-                <label>Logo (optional)</label>
+                <label data-i18n="form_logo">Logo (optional)</label>
                 <input type="file" id="founderLogoFile" accept="image/*">
                 <div class="founder-form-logo-upload" id="founderLogoUploadBox">
                     <div class="founder-form-logo-upload-icon"><i class="fa-solid fa-upload"></i></div>
                     <div class="founder-form-logo-upload-text">
-                        <h3>Logo hochladen</h3>
-                        <p>Klicken Sie hier oder ziehen Sie eine Bilddatei hierher (PNG, JPG).</p>
-                        <span class="founder-form-logo-url-toggle" id="founderLogoUrlToggle">Oder Logo-URL eingeben</span>
+                        <h3 data-i18n="form_upload_title">Logo hochladen</h3>
+                        <p data-i18n="form_upload_hint">Klicken Sie hier oder ziehen Sie eine Bilddatei hierher (PNG, JPG).</p>
+                        <span class="founder-form-logo-url-toggle" id="founderLogoUrlToggle" data-i18n="form_logo_url_toggle">Oder Logo-URL eingeben</span>
                         <div class="founder-form-logo-url-wrap" id="founderLogoUrlWrap" style="display: none;">
                             <input type="url" id="founderLogoUrl" placeholder="https://…">
                         </div>
                     </div>
                 </div>
                 <button type="button" class="form-btn" id="founderFormSubmit">
-                    <i class="fa-solid fa-check"></i> WEITER
+                    <i class="fa-solid fa-check"></i> <span data-i18n="form_continue">WEITER</span>
                 </button>
             </div>
         </div>
@@ -760,9 +769,9 @@
     <div class="sticky-bar" id="stickyBar">
         <div style="display: flex; align-items: center; gap: 20px;">
             <div style="width: 12px; height: 12px; background: var(--success); border-radius: 50%; box-shadow: 0 0 10px var(--success);"></div>
-            <span class="mono" style="font-size: 16px; color: var(--text-muted);">LIVE-BERECHNUNG FÜR <span id="stickyCompany" style="color: var(--brand-dark); font-weight: 700;"></span> (<span id="stickyTrucks">120</span> LKW)</span>
+            <span class="mono" style="font-size: 16px; color: var(--text-muted);"><span data-i18n="sticky_live">LIVE-BERECHNUNG FÜR</span> <span id="stickyCompany" style="color: var(--brand-dark); font-weight: 700;"></span> (<span id="stickyTrucks">120</span> <span data-i18n="sticky_trucks_unit">LKW</span>)</span>
         </div>
-        <div class="mono" style="font-size: 22px; color: var(--brand-dark);">MÖGLICHE EINSPARUNG: <span class="text-success" style="font-weight: 800;" id="stickySavings">€0</span> / MONAT</div>
+        <div class="mono" style="font-size: 22px; color: var(--brand-dark);"><span data-i18n="sticky_savings">MÖGLICHE EINSPARUNG:</span> <span class="text-success" style="font-weight: 800;" id="stickySavings">€0</span> / MONAT</div>
     </div>
 
     <!-- NAV DOTS -->
@@ -775,10 +784,10 @@
     <!-- Slide 1: Title -->
     <div class="slide-container dark-theme" id="slide1" style="justify-content: center; text-align: center;">
         <div style="margin-bottom: 50px;">
-            <h1 style="margin-bottom: 15px;">LENKZEITEN MAXIMIEREN</h1>
-            <h1 style="color: var(--brand-accent);">SUCHVERKEHR ELIMINIEREN</h1>
+            <h1 style="margin-bottom: 15px;" data-i18n="slide1_line1">LENKZEITEN MAXIMIEREN</h1>
+            <h1 style="color: var(--brand-accent);" data-i18n="slide1_line2">SUCHVERKEHR ELIMINIEREN</h1>
         </div>
-        <p style="margin-bottom: 80px;">Weniger Suche. Mehr Lenkzeit. Messbar ab Tag 1.</p>
+        <p style="margin-bottom: 80px;" data-i18n="slide1_tagline">Weniger Suche. Mehr Lenkzeit. Messbar ab Tag 1.</p>
         
         <div style="display: flex; justify-content: center; width: 100%;">
             <div class="hero-pill" style="display: inline-flex; align-items: center; gap: 50px; background: rgba(255,255,255,0.08); padding: 40px 80px; border-radius: 100px; border: 2px solid rgba(255,255,255,0.15);">
@@ -793,9 +802,9 @@
     <!-- Slide 2: The Challenge -->
     <div class="slide-container dark-theme" id="slide2" style="background: linear-gradient(rgba(34, 39, 49, 0.8), rgba(34, 39, 49, 0.8)), url('assets/money_on_road_background.jpeg'); background-size: cover; background-position: center;">
         <div class="content-area">
-            <h2 style="font-size: 120px; line-height: 1; margin-bottom: 30px;">DIE<br>HERAUSFORDERUNG</h2>
+            <h2 style="font-size: 120px; line-height: 1; margin-bottom: 30px;" data-i18n="slide2_title">DIE<br>HERAUSFORDERUNG</h2>
             <div style="width: 150px; height: 10px; background: var(--danger); margin-bottom: 40px;"></div>
-            <p style="font-size: 48px; line-height: 1.3; font-weight: 600; max-width: 1000px; color: #FFFFFF;">
+            <p style="font-size: 48px; line-height: 1.3; font-weight: 600; max-width: 1000px; color: #FFFFFF;" data-i18n="slide2_lead">
                 Ein Problem, das jede Flotte kennt — aber kaum jemand misst.
             </p>
             <!-- Dynamic segment-specific tagline -->
@@ -806,26 +815,26 @@
     <!-- Slide 3: The Cost Factor -->
     <div class="slide-container" id="slide3">
         <div class="accent-bar"></div>
-        <h2 class="slide-title">DER KOSTENFAKTOR</h2>
+        <h2 class="slide-title" data-i18n="slide3_title">DER KOSTENFAKTOR</h2>
         <div class="grid-2">
             <div>
                 <div style="margin-bottom: 50px;">
-                    <span style="background: rgba(239, 68, 68, 0.1); color: var(--danger); font-weight: 800; padding: 10px 20px; border-radius: 6px; font-size: 16px;">IST-ZUSTAND</span>
-                    <h3 style="font-size: 64px; color: var(--brand-dark); margin-top: 15px;">Ø 45 MIN. VERLUST</h3>
-                    <p>Im Durchschnitt verlieren Ihre Fahrer 45 Minuten wertvolle Lenkzeit pro Parkvorgang.</p>
+                    <span style="background: rgba(239, 68, 68, 0.1); color: var(--danger); font-weight: 800; padding: 10px 20px; border-radius: 6px; font-size: 16px;" data-i18n="slide3_badge">IST-ZUSTAND</span>
+                    <h3 style="font-size: 64px; color: var(--brand-dark); margin-top: 15px;" data-i18n="slide3_heading">Ø 45 MIN. VERLUST</h3>
+                    <p data-i18n="slide3_para">Im Durchschnitt verlieren Ihre Fahrer 45 Minuten wertvolle Lenkzeit pro Parkvorgang.</p>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 30px;">
                     <div style="display: flex; align-items: center; gap: 16px; background: white; padding: 16px 20px; border-radius: 12px; border: 1px solid var(--border-light);">
                         <i class="fa-solid fa-coins" style="color: var(--brand-accent); font-size: 22px; width: 30px; text-align: center;"></i>
-                        <span style="font-size: 20px;"><strong id="costPerSearch">€4,39</strong> direkte Kosten pro Suche</span>
+                        <span style="font-size: 20px;"><strong id="costPerSearch">€4,39</strong> <span data-i18n="slide3_cost">direkte Kosten pro Suche</span></span>
                     </div>
                     <div style="display: flex; align-items: center; gap: 16px; background: white; padding: 16px 20px; border-radius: 12px; border: 1px solid var(--border-light);">
                         <i class="fa-solid fa-rotate" style="color: var(--brand-accent); font-size: 22px; width: 30px; text-align: center;"></i>
-                        <span style="font-size: 20px;"><strong>4×</strong> pro Woche pro Fahrzeug</span>
+                        <span style="font-size: 20px;"><strong>4×</strong> <span data-i18n="slide3_per_week">pro Woche pro Fahrzeug</span></span>
                     </div>
                     <div style="display: flex; align-items: center; gap: 16px; background: white; padding: 16px 20px; border-radius: 12px; border: 1px solid rgba(239,68,68,0.2);">
                         <i class="fa-solid fa-triangle-exclamation text-danger" style="font-size: 22px; width: 30px; text-align: center;"></i>
-                        <span style="font-size: 20px;"><strong>Compliance-Risiko:</strong> Lenk- & Ruhezeitverstöße</span>
+                        <span style="font-size: 20px;"><strong data-i18n="slide3_compliance_label">Compliance-Risiko:</strong> <span data-i18n="slide3_compliance_text">Lenk- & Ruhezeitverstöße</span></span>
                     </div>
                 </div>
             </div>
@@ -838,33 +847,33 @@
     <!-- Slide 4: Interactive Calculator -->
     <section class="slide-container" id="slide4">
         <div class="slide-bg-pattern"></div>
-        <h2 class="slide-title">IHR EINSPARPOTENZIAL</h2>
+        <h2 class="slide-title" data-i18n="slide4_title">IHR EINSPARPOTENZIAL</h2>
         <div class="content-area">
-            <p class="intro-text" style="text-align: center; margin-bottom: 15px; font-size: 24px;">Basierend auf Ihrer aktuellen Flottengröße von <strong class="text-primary" id="truckText">120</strong> LKW:</p>
+            <p class="intro-text" style="text-align: center; margin-bottom: 15px; font-size: 24px;"><span data-i18n="slide4_intro">Basierend auf Ihrer aktuellen Flottengröße von</span> <strong class="text-primary" id="truckText">120</strong> <span data-i18n="slide4_trucks_unit">LKW:</span></p>
             
             <div class="slider-container">
                 <div style="font-size: 80px; font-family: 'Oswald'; font-weight: 700; color: var(--brand-accent);" id="truckDisplay">120</div>
-                <div class="mono" style="color: var(--text-muted); margin-bottom: 20px; font-size: 18px;">AKTIVE LKW</div>
+                <div class="mono" style="color: var(--text-muted); margin-bottom: 20px; font-size: 18px;" data-i18n="slide4_active">AKTIVE LKW</div>
                 <input type="range" id="truckSlider" min="10" max="1000" step="10" value="120" oninput="recalculateAll()">
                 <div style="margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border-light);">
-                    <div class="mono" style="color: var(--text-muted); margin-bottom: 8px; font-size: 16px;">KOSTEN PRO SUCHE (€)</div>
+                    <div class="mono" style="color: var(--text-muted); margin-bottom: 8px; font-size: 16px;" data-i18n="slide4_cost_label">KOSTEN PRO SUCHE (€)</div>
                     <div style="font-size: 28px; font-family: 'Oswald'; font-weight: 700; color: var(--brand-dark);" id="costDisplay">4,39</div>
-                    <input type="range" id="costSlider" min="1" max="15" step="0.1" value="4.39" oninput="CONSTANTS.cost=parseFloat(this.value);document.getElementById('costDisplay').innerText=this.value.replace('.',',');recalculateAll()">
+                    <input type="range" id="costSlider" min="1" max="15" step="0.1" value="4.39" oninput="CONSTANTS.cost=parseFloat(this.value);var el=document.getElementById('costDisplay');el.innerText=LANG==='en'?this.value:this.value.replace('.',',');recalculateAll()">
                 </div>
             </div>
 
             <div class="stat-grid">
                 <div class="stat-card" id="card1">
                     <div class="stat-value text-danger" id="wastedHours">1.512 h</div>
-                    <div class="stat-label">VERSCHWENDETE STD. / MONAT</div>
+                    <div class="stat-label" data-i18n="slide4_wasted_h">VERSCHWENDETE STD. / MONAT</div>
                 </div>
                 <div class="stat-card" id="card2">
                     <div class="stat-value" id="wastedMoney">€8.850</div>
-                    <div class="stat-label">VERMEIDBARE KOSTEN / MONAT</div>
+                    <div class="stat-label" data-i18n="slide4_avoid_cost">VERMEIDBARE KOSTEN / MONAT</div>
                 </div>
                 <div class="stat-card" id="card3">
                     <div class="stat-value text-success" id="additionalTransports">+141</div>
-                    <div class="stat-label">ZUSÄTZLICHE TRANSPORTE / MONAT</div>
+                    <div class="stat-label" data-i18n="slide4_extra_transport">ZUSÄTZLICHE TRANSPORTE / MONAT</div>
                 </div>
             </div>
         </div>
@@ -872,29 +881,29 @@
 
     <!-- Slide 6: Intelligent Parking -->
     <div class="slide-container" id="slide6">
-        <h2 class="slide-title">INTELLIGENTES PARKLEITSYSTEM</h2>
+        <h2 class="slide-title" data-i18n="slide6_title">INTELLIGENTES PARKLEITSYSTEM</h2>
         <div class="grid-2" style="gap: 60px;">
             <div style="display: flex; flex-direction: column; justify-content: center; gap: 20px;">
                 <div class="stat-card" style="padding: 20px; text-align: left;">
                     <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 8px;">
                         <i class="fa-solid fa-microchip text-primary" style="font-size: 24px;"></i>
-                        <h3 style="margin-bottom: 0; font-size: 20px;">PLANBARE STELLPLÄTZE</h3>
+                        <h3 style="margin-bottom: 0; font-size: 20px;" data-i18n="slide6_plan">PLANBARE STELLPLÄTZE</h3>
                     </div>
-                    <p style="font-size: 17px; margin: 0;">KI-Algorithmen analysieren historische Daten und sagen die Belegung Stunden im Voraus vorher.</p>
+                    <p style="font-size: 17px; margin: 0;" data-i18n="slide6_plan_para">KI-Algorithmen analysieren historische Daten und sagen die Belegung Stunden im Voraus vorher.</p>
                 </div>
                 <div class="stat-card" style="padding: 20px; text-align: left;">
                     <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 8px;">
                         <i class="fa-solid fa-users-viewfinder text-primary" style="font-size: 24px;"></i>
-                        <h3 style="margin-bottom: 0; font-size: 20px;">VERLÄSSLICHE DATEN</h3>
+                        <h3 style="margin-bottom: 0; font-size: 20px;" data-i18n="slide6_data">VERLÄSSLICHE DATEN</h3>
                     </div>
-                    <p style="font-size: 17px; margin: 0;">Live-Meldungen von über 85.000 aktiven Fahrern validieren und aktualisieren das Netzwerk kontinuierlich.</p>
+                    <p style="font-size: 17px; margin: 0;" data-i18n="slide6_data_para">Live-Meldungen von über 85.000 aktiven Fahrern validieren und aktualisieren das Netzwerk kontinuierlich.</p>
                 </div>
                 <div class="stat-card" style="padding: 20px; text-align: left;">
                     <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 8px;">
                         <i class="fa-solid fa-route text-primary" style="font-size: 24px;"></i>
-                        <h3 style="margin-bottom: 0; font-size: 20px;">OPTIMIERTE ROUTEN</h3>
+                        <h3 style="margin-bottom: 0; font-size: 20px;" data-i18n="slide6_routes">OPTIMIERTE ROUTEN</h3>
                     </div>
-                    <p style="font-size: 17px; margin: 0;">Dynamische Routenplanung, die sich an Lenkzeiten und Parkverfügbarkeit entlang der Strecke anpasst.</p>
+                    <p style="font-size: 17px; margin: 0;" data-i18n="slide6_routes_para">Dynamische Routenplanung, die sich an Lenkzeiten und Parkverfügbarkeit entlang der Strecke anpasst.</p>
                 </div>
             </div>
             <div style="display: flex; align-items: center; justify-content: center; position: relative; min-height: 0; height: 100%; padding: 0; margin: 0;">
@@ -911,48 +920,44 @@
     <!-- Slide 5: Comparison -->
     <div class="slide-container" id="slide5">
         <div class="accent-bar"></div>
-        <h2 class="slide-title">KAPAZITÄTEN FREISETZEN</h2>
+        <h2 class="slide-title" data-i18n="slide5_title">KAPAZITÄTEN FREISETZEN</h2>
         <div class="content-area">
             <!-- Animated Charts -->
             <div style="margin-bottom: 40px;">
                 <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: 700; font-size: 22px;">
-                    <span class="text-danger">HEUTE (Verlust)</span>
+                    <span class="text-danger" data-i18n="slide5_today">HEUTE (Verlust)</span>
                     <span id="labelLoss">1.512 Std.</span>
                 </div>
                 <div style="width: 100%; height: 70px; background: #e5e7eb; border-radius: 8px; overflow: hidden;">
-                    <div class="chart-bar" style="width: 0%; height: 100%; background: var(--danger); display: flex; align-items: center; padding-left: 30px; color: white; font-weight: 700; font-size: 20px;" data-width="85%">
-                        Unproduktive Suchzeit (Gesamtflotte)
-                    </div>
+                    <div class="chart-bar" style="width: 0%; height: 100%; background: var(--danger); display: flex; align-items: center; padding-left: 30px; color: white; font-weight: 700; font-size: 20px;" data-width="85%" data-i18n="slide5_chart_loss">Unproduktive Suchzeit (Gesamtflotte)</div>
                 </div>
             </div>
             
             <div style="margin-bottom: 60px;">
                 <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: 700; font-size: 22px;">
-                    <span class="text-success">MIT LKW.APP</span>
+                    <span class="text-success" data-i18n="slide5_with_app">MIT LKW.APP</span>
                     <span id="labelGain">+1.436 Std.</span>
                 </div>
                 <div style="width: 100%; height: 70px; background: #e5e7eb; border-radius: 8px; overflow: hidden;">
-                    <div class="chart-bar" style="width: 0%; height: 100%; background: var(--success); display: flex; align-items: center; padding-left: 30px; color: white; font-weight: 700; font-size: 20px;" data-width="100%">
-                        Produktiv nutzbare Lenkzeit
-                    </div>
+                    <div class="chart-bar" style="width: 0%; height: 100%; background: var(--success); display: flex; align-items: center; padding-left: 30px; color: white; font-weight: 700; font-size: 20px;" data-width="100%" data-i18n="slide5_chart_gain">Produktiv nutzbare Lenkzeit</div>
                 </div>
             </div>
             
             <div style="background: white; border: 2px solid var(--success); padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 10px 40px rgba(16, 185, 129, 0.1);">
-                <h3 style="margin-bottom: 10px; color: var(--success); font-size: 32px;">DAS ERGEBNIS</h3>
-                <p style="margin: 0; font-size: 28px;">Die deutliche Reduzierung der Suchzeit ermöglicht <strong class="text-success" id="transportsGained">+14 zusätzliche Transporte</strong> pro Monat.</p>
+                <h3 style="margin-bottom: 10px; color: var(--success); font-size: 32px;" data-i18n="slide5_result">DAS ERGEBNIS</h3>
+                <p style="margin: 0; font-size: 28px;"><span data-i18n="slide5_result_para">Die deutliche Reduzierung der Suchzeit ermöglicht</span> <strong class="text-success" id="transportsGained">+14 zusätzliche Transporte</strong> <span data-i18n="slide5_per_month">pro Monat.</span></p>
             </div>
         </div>
     </div>
 
     <!-- Slide 7: Transparency -->
     <div class="slide-container" id="slide7">
-        <h2 class="slide-title">VOLLE TRANSPARENZ</h2>
+        <h2 class="slide-title" data-i18n="slide7_title">VOLLE TRANSPARENZ</h2>
         <div class="grid-2">
             <div style="display: flex; flex-direction: column; justify-content: center;">
-                <h3 class="text-primary" style="margin-bottom: 25px; font-size: 36px;">VORAUSSCHAUENDE PLANUNG</h3>
-                <p>Unsere Algorithmen verfeinern Prognosen kontinuierlich auf Basis historischer Daten und Live-Meldungen.</p>
-                <p style="margin-top: 30px;"><strong>Für die Disposition:</strong> Sofortige Sichtbarkeit verfügbarer Kapazitäten und Tourenplanung ohne "Sicherheits-Puffer".</p>
+                <h3 class="text-primary" style="margin-bottom: 25px; font-size: 36px;" data-i18n="slide7_heading">VORAUSSCHAUENDE PLANUNG</h3>
+                <p data-i18n="slide7_para1">Unsere Algorithmen verfeinern Prognosen kontinuierlich auf Basis historischer Daten und Live-Meldungen.</p>
+                <p style="margin-top: 30px;"><strong data-i18n="slide7_para2_label">Für die Disposition:</strong> <span data-i18n="slide7_para2_text">Sofortige Sichtbarkeit verfügbarer Kapazitäten und Tourenplanung ohne "Sicherheits-Puffer".</span></p>
             </div>
             <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1);">
                 <img src="assets/dashboard_prediction_graph.jpg" style="width: 100%;">
@@ -962,29 +967,29 @@
 
     <!-- Slide 8: Pilot Phase -->
     <div class="slide-container" id="slide8">
-        <h2 class="slide-title" style="justify-content: center;">PILOTPHASE & ROLLOUT</h2>
+        <h2 class="slide-title" style="justify-content: center;" data-i18n="slide8_title">PILOTPHASE & ROLLOUT</h2>
         <div class="content-area">
             <div class="timeline-wrapper">
                 <div class="timeline-step">
                     <div class="step-num">1</div>
-                    <h3 style="color: var(--brand-accent);">TESTSTELLUNG</h3>
-                    <p style="font-size: 18px;">30 Tage kostenlos testen<br><strong>Aufwand: 10 Min.</strong></p>
+                    <h3 style="color: var(--brand-accent);" data-i18n="slide8_step1">TESTSTELLUNG</h3>
+                    <p style="font-size: 18px;" data-i18n="slide8_step1_para">30 Tage kostenlos testen<br><strong>Aufwand: 10 Min.</strong></p>
                 </div>
                 <div class="timeline-step">
                     <div class="step-num">2</div>
-                    <h3 style="color: var(--brand-accent);">ONBOARDING</h3>
-                    <p style="font-size: 18px;">Auswahl 5-10 Fahrer<br><strong>Direktes Feedback</strong></p>
+                    <h3 style="color: var(--brand-accent);" data-i18n="slide8_step2">ONBOARDING</h3>
+                    <p style="font-size: 18px;" data-i18n="slide8_step2_para">Auswahl 5-10 Fahrer<br><strong>Direktes Feedback</strong></p>
                 </div>
                 <div class="timeline-step">
                     <div class="step-num">3</div>
-                    <h3 style="color: var(--brand-accent);">ROLLOUT</h3>
-                    <p style="font-size: 18px;">Flottenweiter Einsatz<br><strong>ROI Messung</strong></p>
+                    <h3 style="color: var(--brand-accent);" data-i18n="slide8_step3">ROLLOUT</h3>
+                    <p style="font-size: 18px;" data-i18n="slide8_step3_para">Flottenweiter Einsatz<br><strong>ROI Messung</strong></p>
                 </div>
             </div>
             
             <div style="margin-top: 80px; text-align: center;">
                 <div style="display: inline-block; padding: 20px 40px; background: #eef2ff; border-radius: 50px; border: 2px dashed var(--brand-accent);">
-                    <strong class="text-primary" style="font-size: 22px;">MEHRWERT: ZUFRIEDENE FAHRER + HÖHERER DURCHSATZ</strong>
+                    <strong class="text-primary" style="font-size: 22px;" data-i18n="slide8_value">MEHRWERT: ZUFRIEDENE FAHRER + HÖHERER DURCHSATZ</strong>
                 </div>
             </div>
         </div>
@@ -993,38 +998,38 @@
     <!-- Slide 9: Cost Benefit Table -->
     <div class="slide-container" id="slide9">
         <div class="accent-bar"></div>
-        <h2 class="slide-title">POTENZIALANALYSE</h2>
+        <h2 class="slide-title" data-i18n="slide9_title">POTENZIALANALYSE</h2>
         <div class="content-area">
             <table class="modern-table">
                 <thead>
                     <tr>
-                        <th style="width: 35%;">KPI</th>
-                        <th style="width: 20%;">IST-ZUSTAND</th>
-                        <th style="width: 20%;">MIT LKW.APP</th>
-                        <th style="width: 25%; text-align: right;">STEIGERUNG</th>
+                        <th style="width: 35%;" data-i18n="slide9_kpi">KPI</th>
+                        <th style="width: 20%;" data-i18n="slide9_ist">IST-ZUSTAND</th>
+                        <th style="width: 20%;" data-i18n="slide9_mit">MIT LKW.APP</th>
+                        <th style="width: 25%; text-align: right;" data-i18n="slide9_steigerung">STEIGERUNG</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Effizienz (km / bezahlte Std.)</td>
+                        <td data-i18n="slide9_row1">Effizienz (km / bezahlte Std.)</td>
                         <td>58,5 km/h</td>
                         <td>67,2 km/h</td>
                         <td class="text-success">+ 14,9%</td>
                     </tr>
                     <tr>
-                        <td>Fahrerzufriedenheit</td>
+                        <td data-i18n="slide9_row2">Fahrerzufriedenheit</td>
                         <td>2,8 / 5,0</td>
                         <td>4,2 / 5,0</td>
                         <td class="text-success">+ 50,0%</td>
                     </tr>
                     <tr>
-                        <td>CO₂ Emissionen</td>
+                        <td data-i18n="slide9_row3">CO₂ Emissionen</td>
                         <td>410 t</td>
                         <td>385 t</td>
                         <td class="text-success">- 6,1%</td>
                     </tr>
                     <tr>
-                        <td>Vermeidbare Kosten / Monat <small>(für <span id="tableTrucks">120</span> LKW)</small></td>
+                        <td><span data-i18n="slide9_row4">Vermeidbare Kosten / Monat</span> <small>(<span data-i18n="slide9_for">für</span> <span id="tableTrucks">120</span> <span data-i18n="slide9_for_trucks">LKW</span>)</small></td>
                         <td id="tableOpexOld">—</td>
                         <td id="tableOpexNew">—</td>
                         <td class="text-success" style="font-size: 28px;" id="tableSaving">—</td>
@@ -1036,15 +1041,15 @@
 
     <!-- Slide 10: Integration -->
     <div class="slide-container" id="slide10">
-        <h2 class="slide-title">PASST IN IHRE INFRASTRUKTUR</h2>
+        <h2 class="slide-title" data-i18n="slide10_title">PASST IN IHRE INFRASTRUKTUR</h2>
         <div class="grid-2">
             <div>
-                <h3 style="margin-bottom: 25px; font-size: 36px;">TMS- & TELEMATIK-ANBINDUNG</h3>
-                <p>Verbinden Sie LKW.APP direkt mit Ihrem bestehenden TMS und Telematik-System — ohne Systemwechsel.</p>
+                <h3 style="margin-bottom: 25px; font-size: 36px;" data-i18n="slide10_heading">TMS- & TELEMATIK-ANBINDUNG</h3>
+                <p data-i18n="slide10_para">Verbinden Sie LKW.APP direkt mit Ihrem bestehenden TMS und Telematik-System — ohne Systemwechsel.</p>
                 <ul class="icon-list">
-                    <li><i class="fa-solid fa-check"></i> Live-Belegungsdaten für Parkplätze entlang der Route</li>
-                    <li><i class="fa-solid fa-check"></i> Echtzeit-Statusmeldungen Ihrer Fahrer</li>
-                    <li><i class="fa-solid fa-check"></i> 42+ Service-Filter (Sicherheit, Duschen, Kühlung, etc.)</li>
+                    <li><i class="fa-solid fa-check"></i> <span data-i18n="slide10_li1">Live-Belegungsdaten für Parkplätze entlang der Route</span></li>
+                    <li><i class="fa-solid fa-check"></i> <span data-i18n="slide10_li2">Echtzeit-Statusmeldungen Ihrer Fahrer</span></li>
+                    <li><i class="fa-solid fa-check"></i> <span data-i18n="slide10_li3">42+ Service-Filter (Sicherheit, Duschen, Kühlung, etc.)</span></li>
                 </ul>
             </div>
             <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1);">
@@ -1055,25 +1060,25 @@
 
     <!-- Slide 11: Why LKW.APP -->
     <div class="slide-container" id="slide11">
-        <h2 class="slide-title">WARUM LKW.APP?</h2>
+        <h2 class="slide-title" data-i18n="slide11_title">WARUM LKW.APP?</h2>
         <div class="slide11-boxes-wrap">
         <div class="stat-grid" style="grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 10px;">
             <div class="stat-card" style="text-align: left; border-top: 8px solid var(--success); padding: 30px;">
-                <h3 style="margin-bottom: 20px; font-size: 32px;">FÜR IHRE FAHRER</h3>
+                <h3 style="margin-bottom: 20px; font-size: 32px;" data-i18n="slide11_driver">FÜR IHRE FAHRER</h3>
                 <ul class="icon-list" style="margin-top: 0;">
-                    <li style="margin-bottom: 20px;"><i class="fa-solid fa-heart text-success"></i> Weniger Suchstress & Ermüdung</li>
-                    <li style="margin-bottom: 20px;"><i class="fa-solid fa-shield-halved text-success"></i> Sichere, validierte Ruhezeiten</li>
-                    <li style="margin-bottom: 20px;"><i class="fa-solid fa-bed text-success"></i> Stellplatz vor Abfahrt gesichert</li>
-                    <li style="margin-bottom: 0;"><i class="fa-solid fa-thumbs-up text-success"></i> Höhere Zufriedenheit & Bindung</li>
+                    <li style="margin-bottom: 20px;"><i class="fa-solid fa-heart text-success"></i> <span data-i18n="slide11_driver_li1">Weniger Suchstress & Ermüdung</span></li>
+                    <li style="margin-bottom: 20px;"><i class="fa-solid fa-shield-halved text-success"></i> <span data-i18n="slide11_driver_li2">Sichere, validierte Ruhezeiten</span></li>
+                    <li style="margin-bottom: 20px;"><i class="fa-solid fa-bed text-success"></i> <span data-i18n="slide11_driver_li3">Stellplatz vor Abfahrt gesichert</span></li>
+                    <li style="margin-bottom: 0;"><i class="fa-solid fa-thumbs-up text-success"></i> <span data-i18n="slide11_driver_li4">Höhere Zufriedenheit & Bindung</span></li>
                 </ul>
             </div>
             <div class="stat-card" style="text-align: left; border-top: 8px solid var(--brand-accent); padding: 30px;">
-                <h3 style="margin-bottom: 20px; font-size: 32px;">FÜR IHRE DISPOSITION</h3>
+                <h3 style="margin-bottom: 20px; font-size: 32px;" data-i18n="slide11_disp">FÜR IHRE DISPOSITION</h3>
                 <ul class="icon-list" style="margin-top: 0;">
-                    <li style="margin-bottom: 20px;"><i class="fa-solid fa-stopwatch text-primary"></i> Präzise ETA-Planung</li>
-                    <li style="margin-bottom: 20px;"><i class="fa-solid fa-eye text-primary"></i> Volle Transparenz über die Flotte</li>
-                    <li style="margin-bottom: 20px;"><i class="fa-solid fa-ban text-primary"></i> Keine Sicherheits-Puffer nötig</li>
-                    <li style="margin-bottom: 0;"><i class="fa-solid fa-chart-line text-primary"></i> Messbare Effizienzsteigerung</li>
+                    <li style="margin-bottom: 20px;"><i class="fa-solid fa-stopwatch text-primary"></i> <span data-i18n="slide11_disp_li1">Präzise ETA-Planung</span></li>
+                    <li style="margin-bottom: 20px;"><i class="fa-solid fa-eye text-primary"></i> <span data-i18n="slide11_disp_li2">Volle Transparenz über die Flotte</span></li>
+                    <li style="margin-bottom: 20px;"><i class="fa-solid fa-ban text-primary"></i> <span data-i18n="slide11_disp_li3">Keine Sicherheits-Puffer nötig</span></li>
+                    <li style="margin-bottom: 0;"><i class="fa-solid fa-chart-line text-primary"></i> <span data-i18n="slide11_disp_li4">Messbare Effizienzsteigerung</span></li>
                 </ul>
             </div>
         </div>
@@ -1083,7 +1088,7 @@
     <!-- Slide 12: Contact -->
     <div class="slide-container dark-theme" id="slide12">
         <div class="content-area">
-            <h2 style="font-size: 100px; margin-bottom: 40px;">KONTAKT.</h2>
+            <h2 style="font-size: 100px; margin-bottom: 40px;" data-i18n="slide12_contact">KONTAKT.</h2>
             <div class="contact-row" style="display: flex; align-items: center; gap: 50px;">
                 <img src="assets/roland_moussavi_portrait.jpg" alt="Roland Moussavi" style="width: 180px; height: 180px; border-radius: 50%; object-fit: cover; border: 5px solid var(--brand-accent);">
                 <div>
@@ -1091,17 +1096,17 @@
                     <p style="margin: 0 0 24px 0; color: #FFFFFF; font-size: 24px;">CEO & Co-Founder</p>
                     <p style="margin: 0 0 8px 0; font-size: 20px;"><a href="mailto:r.moussavi@aparkado.de" style="color: rgba(255,255,255,0.9); text-decoration: none;">r.moussavi@aparkado.de</a></p>
                     <p style="margin: 0 0 28px 0; font-size: 20px;"><a href="https://www.lkw.app" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.9); text-decoration: none;">www.lkw.app</a></p>
-                    <p style="margin: 0 0 16px 0; font-size: 18px; color: rgba(255,255,255,0.6);">Sie möchten einen Pilot starten?</p>
-                    <a href="https://aparkado.pipedrive.com/scheduler/kWZkzkhj/lkwapp-intro-meeting-mit-roland" target="_blank" rel="noopener" style="display: inline-block; color: var(--brand-accent); font-size: 18px; text-decoration: underline; font-weight: 600;">Pilot anfragen</a>
+                    <p style="margin: 0 0 16px 0; font-size: 18px; color: rgba(255,255,255,0.6);" data-i18n="slide12_pilot_cta">Sie möchten einen Pilot starten?</p>
+                    <a href="https://aparkado.pipedrive.com/scheduler/kWZkzkhj/lkwapp-intro-meeting-mit-roland" target="_blank" rel="noopener" style="display: inline-block; color: var(--brand-accent); font-size: 18px; text-decoration: underline; font-weight: 600;" data-i18n="slide12_pilot_link">Pilot anfragen</a>
                     <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px;" class="no-print">
                         <button type="button" onclick="copyShareLink()" style="display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.25); padding: 10px 20px; border-radius: 50px; font-size: 14px; cursor: pointer;">
-                            <i class="fa-solid fa-link"></i> LINK KOPIEREN
+                            <i class="fa-solid fa-link"></i> <span data-i18n="btn_copy_link">LINK KOPIEREN</span>
                         </button>
                         <button type="button" onclick="downloadAsHtml()" style="display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.25); padding: 10px 20px; border-radius: 50px; font-size: 14px; cursor: pointer;">
-                            <i class="fa-solid fa-download"></i> ALS HTML SPEICHERN
+                            <i class="fa-solid fa-download"></i> <span data-i18n="btn_download_html">ALS HTML SPEICHERN</span>
                         </button>
                         <button type="button" onclick="exportAsPdf()" style="display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.25); padding: 10px 20px; border-radius: 50px; font-size: 14px; cursor: pointer;">
-                            <i class="fa-solid fa-file-pdf"></i> ALS PDF EXPORTIEREN
+                            <i class="fa-solid fa-file-pdf"></i> <span data-i18n="btn_export_pdf">ALS PDF EXPORTIEREN</span>
                         </button>
                     </div>
                 </div>
@@ -1116,6 +1121,241 @@
         const CONSTANTS = {
             searchesPerWeek: 4, weeks: 4.2, hoursLost: 0.75, cost: 4.39, co2: 5.9, transportsRatio: 0.093
         };
+
+        // --- LANGUAGE (URL ?lang=en for English) ---
+        function getLang() {
+            const p = new URLSearchParams(window.location.search);
+            return (p.get('lang') || '').toLowerCase() === 'en' ? 'en' : 'de';
+        }
+        let LANG = getLang();
+        const I18N = {
+            de: {
+                form_title: 'Präsentation anpassen',
+                form_subtitle: 'Firmenname, Flottengröße und Logo für die personalisierte Deck.',
+                form_company: 'Firmenname',
+                form_company_ph: 'z. B. Muster Logistik GmbH',
+                form_trucks: 'Flottengröße (LKW)',
+                form_logo: 'Logo (optional)',
+                form_upload_title: 'Logo hochladen',
+                form_upload_hint: 'Klicken Sie hier oder ziehen Sie eine Bilddatei hierher (PNG, JPG).',
+                form_logo_url_toggle: 'Oder Logo-URL eingeben',
+                form_continue: 'WEITER',
+                sticky_live: 'LIVE-BERECHNUNG FÜR',
+                sticky_trucks_unit: 'LKW',
+                sticky_savings: 'MÖGLICHE EINSPARUNG:',
+                slide1_line1: 'LENKZEITEN MAXIMIEREN',
+                slide1_line2: 'SUCHVERKEHR ELIMINIEREN',
+                slide1_tagline: 'Weniger Suche. Mehr Lenkzeit. Messbar ab Tag 1.',
+                hero_default: 'KUNDE',
+                slide2_title: 'DIE\nHERAUSFORDERUNG',
+                slide2_lead: 'Ein Problem, das jede Flotte kennt — aber kaum jemand misst.',
+                slide3_title: 'DER KOSTENFAKTOR',
+                slide3_badge: 'IST-ZUSTAND',
+                slide3_heading: 'Ø 45 MIN. VERLUST',
+                slide3_para: 'Im Durchschnitt verlieren Ihre Fahrer 45 Minuten wertvolle Lenkzeit pro Parkvorgang.',
+                slide3_cost: 'direkte Kosten pro Suche',
+                slide3_per_week: 'pro Woche pro Fahrzeug',
+                slide3_compliance_label: 'Compliance-Risiko:',
+                slide3_compliance_text: 'Lenk- & Ruhezeitverstöße',
+                slide4_title: 'IHR EINSPARPOTENZIAL',
+                slide4_intro: 'Basierend auf Ihrer aktuellen Flottengröße von',
+                slide4_trucks_unit: 'LKW:',
+                slide4_active: 'AKTIVE LKW',
+                slide4_cost_label: 'KOSTEN PRO SUCHE (€)',
+                slide4_wasted_h: 'VERSCHWENDETE STD. / MONAT',
+                slide4_avoid_cost: 'VERMEIDBARE KOSTEN / MONAT',
+                slide4_extra_transport: 'ZUSÄTZLICHE TRANSPORTE / MONAT',
+                slide5_title: 'KAPAZITÄTEN FREISETZEN',
+                slide5_today: 'HEUTE (Verlust)',
+                slide5_with_app: 'MIT LKW.APP',
+                slide5_chart_loss: 'Unproduktive Suchzeit (Gesamtflotte)',
+                slide5_chart_gain: 'Produktiv nutzbare Lenkzeit',
+                slide5_result: 'DAS ERGEBNIS',
+                slide5_result_para: 'Die deutliche Reduzierung der Suchzeit ermöglicht',
+                slide5_transports_suffix: ' zusätzliche Transporte',
+                slide5_per_month: ' pro Monat.',
+                slide6_title: 'INTELLIGENTES PARKLEITSYSTEM',
+                slide6_plan: 'PLANBARE STELLPLÄTZE',
+                slide6_plan_para: 'KI-Algorithmen analysieren historische Daten und sagen die Belegung Stunden im Voraus vorher.',
+                slide6_data: 'VERLÄSSLICHE DATEN',
+                slide6_data_para: 'Live-Meldungen von über 85.000 aktiven Fahrern validieren und aktualisieren das Netzwerk kontinuierlich.',
+                slide6_routes: 'OPTIMIERTE ROUTEN',
+                slide6_routes_para: 'Dynamische Routenplanung, die sich an Lenkzeiten und Parkverfügbarkeit entlang der Strecke anpasst.',
+                slide7_title: 'VOLLE TRANSPARENZ',
+                slide7_heading: 'VORAUSSCHAUENDE PLANUNG',
+                slide7_para1: 'Unsere Algorithmen verfeinern Prognosen kontinuierlich auf Basis historischer Daten und Live-Meldungen.',
+                slide7_para2_label: 'Für die Disposition:',
+                slide7_para2_text: 'Sofortige Sichtbarkeit verfügbarer Kapazitäten und Tourenplanung ohne "Sicherheits-Puffer".',
+                slide8_title: 'PILOTPHASE & ROLLOUT',
+                slide8_step1: 'TESTSTELLUNG',
+                slide8_step1_para: '30 Tage kostenlos testen\nAufwand: 10 Min.',
+                slide8_step2: 'ONBOARDING',
+                slide8_step2_para: 'Auswahl 5-10 Fahrer\nDirektes Feedback',
+                slide8_step3: 'ROLLOUT',
+                slide8_step3_para: 'Flottenweiter Einsatz\nROI Messung',
+                slide8_value: 'MEHRWERT: ZUFRIEDENE FAHRER + HÖHERER DURCHSATZ',
+                slide9_title: 'POTENZIALANALYSE',
+                slide9_kpi: 'KPI',
+                slide9_ist: 'IST-ZUSTAND',
+                slide9_mit: 'MIT LKW.APP',
+                slide9_steigerung: 'STEIGERUNG',
+                slide9_row1: 'Effizienz (km / bezahlte Std.)',
+                slide9_row2: 'Fahrerzufriedenheit',
+                slide9_row3: 'CO₂ Emissionen',
+                slide9_row4: 'Vermeidbare Kosten / Monat',
+                slide9_for: 'für',
+                slide9_for_trucks: 'LKW',
+                slide10_title: 'PASST IN IHRE INFRASTRUKTUR',
+                slide10_heading: 'TMS- & TELEMATIK-ANBINDUNG',
+                slide10_para: 'Verbinden Sie LKW.APP direkt mit Ihrem bestehenden TMS und Telematik-System — ohne Systemwechsel.',
+                slide10_li1: 'Live-Belegungsdaten für Parkplätze entlang der Route',
+                slide10_li2: 'Echtzeit-Statusmeldungen Ihrer Fahrer',
+                slide10_li3: '42+ Service-Filter (Sicherheit, Duschen, Kühlung, etc.)',
+                slide11_title: 'WARUM LKW.APP?',
+                slide11_driver: 'FÜR IHRE FAHRER',
+                slide11_driver_li1: 'Weniger Suchstress & Ermüdung',
+                slide11_driver_li2: 'Sichere, validierte Ruhezeiten',
+                slide11_driver_li3: 'Stellplatz vor Abfahrt gesichert',
+                slide11_driver_li4: 'Höhere Zufriedenheit & Bindung',
+                slide11_disp: 'FÜR IHRE DISPOSITION',
+                slide11_disp_li1: 'Präzise ETA-Planung',
+                slide11_disp_li2: 'Volle Transparenz über die Flotte',
+                slide11_disp_li3: 'Keine Sicherheits-Puffer nötig',
+                slide11_disp_li4: 'Messbare Effizienzsteigerung',
+                slide12_contact: 'KONTAKT.',
+                slide12_pilot_cta: 'Sie möchten einen Pilot starten?',
+                slide12_pilot_link: 'Pilot anfragen',
+                btn_copy_link: 'LINK KOPIEREN',
+                btn_download_html: 'ALS HTML SPEICHERN',
+                btn_export_pdf: 'ALS PDF EXPORTIEREN',
+                alert_link_copied: 'Link in Zwischenablage kopiert.',
+                hours_short: ' Std.',
+                cost_per_month_ctx: '/Monat bei',
+                trucks_short: ' LKW',
+                doc_title: 'LKW.APP Strategisches Angebot'
+            },
+            en: {
+                form_title: 'Customize presentation',
+                form_subtitle: 'Company name, fleet size and logo for the personalized deck.',
+                form_company: 'Company name',
+                form_company_ph: 'e.g. Acme Logistics Ltd.',
+                form_trucks: 'Fleet size (trucks)',
+                form_logo: 'Logo (optional)',
+                form_upload_title: 'Upload logo',
+                form_upload_hint: 'Click or drag an image here (PNG, JPG).',
+                form_logo_url_toggle: 'Or enter logo URL',
+                form_continue: 'CONTINUE',
+                sticky_live: 'LIVE CALCULATION FOR',
+                sticky_trucks_unit: 'trucks',
+                sticky_savings: 'POSSIBLE SAVINGS:',
+                slide1_line1: 'MAXIMIZE DRIVING TIME',
+                slide1_line2: 'ELIMINATE SEARCH TRAFFIC',
+                slide1_tagline: 'Less search. More driving. Measurable from day 1.',
+                hero_default: 'CUSTOMER',
+                slide2_title: 'THE\nCHALLENGE',
+                slide2_lead: 'A problem every fleet knows — but hardly anyone measures.',
+                slide3_title: 'THE COST FACTOR',
+                slide3_badge: 'CURRENT STATE',
+                slide3_heading: 'Ø 45 MIN. LOST',
+                slide3_para: 'On average, your drivers lose 45 minutes of valuable driving time per parking event.',
+                slide3_cost: 'direct cost per search',
+                slide3_per_week: 'per week per vehicle',
+                slide3_compliance_label: 'Compliance risk:',
+                slide3_compliance_text: 'driving & rest time violations',
+                slide4_title: 'YOUR SAVINGS POTENTIAL',
+                slide4_intro: 'Based on your current fleet size of',
+                slide4_trucks_unit: 'trucks:',
+                slide4_active: 'ACTIVE TRUCKS',
+                slide4_cost_label: 'COST PER SEARCH (€)',
+                slide4_wasted_h: 'WASTED HRS. / MONTH',
+                slide4_avoid_cost: 'AVOIDABLE COSTS / MONTH',
+                slide4_extra_transport: 'ADDITIONAL TRANSPORTS / MONTH',
+                slide5_title: 'UNLOCK CAPACITY',
+                slide5_today: 'TODAY (Loss)',
+                slide5_with_app: 'WITH LKW.APP',
+                slide5_chart_loss: 'Unproductive search time (entire fleet)',
+                slide5_chart_gain: 'Productive driving time',
+                slide5_result: 'THE RESULT',
+                slide5_result_para: 'The significant reduction in search time enables',
+                slide5_transports_suffix: ' additional transports',
+                slide5_per_month: ' per month.',
+                slide6_title: 'INTELLIGENT PARKING SYSTEM',
+                slide6_plan: 'PLANNABLE SPACES',
+                slide6_plan_para: 'AI algorithms analyze historical data and predict occupancy hours in advance.',
+                slide6_data: 'RELIABLE DATA',
+                slide6_data_para: 'Live reports from 85,000+ active drivers continuously validate and update the network.',
+                slide6_routes: 'OPTIMIZED ROUTES',
+                slide6_routes_para: 'Dynamic route planning that adapts to driving times and parking availability along the route.',
+                slide7_title: 'FULL TRANSPARENCY',
+                slide7_heading: 'FORWARD-LOOKING PLANNING',
+                slide7_para1: 'Our algorithms continuously refine forecasts based on historical data and live reports.',
+                slide7_para2_label: 'For dispatch:',
+                slide7_para2_text: 'Immediate visibility of available capacity and route planning without "safety buffers".',
+                slide8_title: 'PILOT PHASE & ROLLOUT',
+                slide8_step1: 'TRIAL',
+                slide8_step1_para: '30 days free trial\nEffort: 10 min.',
+                slide8_step2: 'ONBOARDING',
+                slide8_step2_para: 'Select 5–10 drivers\nDirect feedback',
+                slide8_step3: 'ROLLOUT',
+                slide8_step3_para: 'Fleet-wide deployment\nROI measurement',
+                slide8_value: 'VALUE: HAPPIER DRIVERS + HIGHER THROUGHPUT',
+                slide9_title: 'POTENTIAL ANALYSIS',
+                slide9_kpi: 'KPI',
+                slide9_ist: 'CURRENT',
+                slide9_mit: 'WITH LKW.APP',
+                slide9_steigerung: 'IMPROVEMENT',
+                slide9_row1: 'Efficiency (km / paid hr.)',
+                slide9_row2: 'Driver satisfaction',
+                slide9_row3: 'CO₂ emissions',
+                slide9_row4: 'Avoidable costs / month',
+                slide9_for: 'for',
+                slide9_for_trucks: 'trucks',
+                slide10_title: 'FITS YOUR INFRASTRUCTURE',
+                slide10_heading: 'TMS & TELEMATICS INTEGRATION',
+                slide10_para: 'Connect LKW.APP directly to your existing TMS and telematics system — no system change required.',
+                slide10_li1: 'Live occupancy data for parking along the route',
+                slide10_li2: 'Real-time status updates from your drivers',
+                slide10_li3: '42+ service filters (security, showers, cooling, etc.)',
+                slide11_title: 'WHY LKW.APP?',
+                slide11_driver: 'FOR YOUR DRIVERS',
+                slide11_driver_li1: 'Less search stress & fatigue',
+                slide11_driver_li2: 'Safe, validated rest periods',
+                slide11_driver_li3: 'Parking space secured before departure',
+                slide11_driver_li4: 'Higher satisfaction & retention',
+                slide11_disp: 'FOR YOUR DISPATCH',
+                slide11_disp_li1: 'Precise ETA planning',
+                slide11_disp_li2: 'Full transparency across the fleet',
+                slide11_disp_li3: 'No safety buffers needed',
+                slide11_disp_li4: 'Measurable efficiency gains',
+                slide12_contact: 'CONTACT.',
+                slide12_pilot_cta: 'Want to start a pilot?',
+                slide12_pilot_link: 'Request pilot',
+                btn_copy_link: 'COPY LINK',
+                btn_download_html: 'SAVE AS HTML',
+                btn_export_pdf: 'EXPORT AS PDF',
+                alert_link_copied: 'Link copied to clipboard.',
+                hours_short: ' hrs',
+                cost_per_month_ctx: '/month at',
+                trucks_short: ' trucks',
+                doc_title: 'LKW.APP Strategic Proposal'
+            }
+        };
+        function t(key) { return (I18N[LANG] && I18N[LANG][key]) ? I18N[LANG][key] : (I18N.de[key] || key); }
+        function applyLanguage(lang) {
+            LANG = lang || getLang();
+            document.documentElement.lang = LANG;
+            document.querySelectorAll('[data-i18n]').forEach(function(el) {
+                const key = el.getAttribute('data-i18n');
+                const val = I18N[LANG] && I18N[LANG][key] ? I18N[LANG][key] : (I18N.de[key] || '');
+                if (val.indexOf('\n') !== -1) el.innerHTML = val.replace(/\n/g, '<br>');
+                else el.textContent = val;
+            });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (I18N[LANG] && I18N[LANG][key]) el.placeholder = I18N[LANG][key];
+            });
+            if (I18N[LANG] && I18N[LANG].doc_title) document.title = I18N[LANG].doc_title;
+        }
 
         // --- PRESENTATION STATE (for share/export) ---
         window.presentationState = { company: 'KUNDE', trucks: 120, cost: 4.39, logoUrl: '' };
@@ -1132,7 +1372,9 @@
         }
 
         function applyPresentationState(opts) {
-            const client = (opts.company || 'KUNDE').replace(/_/g, ' ');
+            const rawCompany = (opts.company || 'KUNDE').replace(/_/g, ' ');
+            const isDefaultCompany = rawCompany === 'KUNDE' || rawCompany === 'CUSTOMER';
+            const client = isDefaultCompany ? t('hero_default') : rawCompany;
             const trucks = parseInt(opts.trucks) || 120;
             const name = (opts.name || '').replace(/_/g, ' ');
             const role = (opts.role || '').replace(/_/g, ' ');
@@ -1145,7 +1387,7 @@
                 const costDisplayEl = document.getElementById('costDisplay');
                 if (costDisplayEl) costDisplayEl.innerText = CONSTANTS.cost.toFixed(2).replace('.', ',');
             }
-            window.presentationState.company = client;
+            window.presentationState.company = rawCompany;
             window.presentationState.trucks = trucks;
             window.presentationState.cost = CONSTANTS.cost;
 
@@ -1230,7 +1472,7 @@
 
         // --- CALCULATION LOGIC ---
         function formatNumber(num) {
-            return new Intl.NumberFormat('de-DE').format(Math.round(num));
+            return new Intl.NumberFormat(LANG === 'en' ? 'en-US' : 'de-DE').format(Math.round(num));
         }
 
         function recalculateAll() {
@@ -1255,13 +1497,13 @@
             animateValue("additionalTransports", transports, "+");
             
             animateValue("stickySavings", money, "€");
-            animateValue("transportsGained", transports, "+", " zusätzliche Transporte");
+            animateValue("transportsGained", transports, "+", t('slide5_transports_suffix'));
             
             // Slide 3: dynamic cost contextualization
             const monthlyCostPerTruck = CONSTANTS.searchesPerWeek * CONSTANTS.weeks * CONSTANTS.cost;
             const totalMonthlyCost = monthlyCostPerTruck * trucks;
             const costContextEl = document.getElementById('costContext');
-            if (costContextEl) costContextEl.innerText = '€' + formatNumber(totalMonthlyCost) + '/Monat bei ' + formatNumber(trucks) + ' LKW';
+            if (costContextEl) costContextEl.innerText = '€' + formatNumber(totalMonthlyCost) + t('cost_per_month_ctx') + ' ' + formatNumber(trucks) + t('trucks_short');
             
             // Slide 9: dynamic OPEX row (derived from same formula)
             const tableT = document.getElementById('tableTrucks');
@@ -1275,14 +1517,14 @@
             if (tableSaving) tableSaving.innerText = '- €' + formatNumber(savingsAmount);
             
             // Dynamic Labels
-            document.getElementById('labelLoss').innerText = formatNumber(hours) + " Std.";
-            document.getElementById('labelGain').innerText = "+" + formatNumber(hours * 0.95) + " Std.";
+            document.getElementById('labelLoss').innerText = formatNumber(hours) + t('hours_short');
+            document.getElementById('labelGain').innerText = "+" + formatNumber(hours * 0.95) + t('hours_short');
             
             // Slide 3: cost per search (DE locale)
             const costPerSearchEl = document.getElementById('costPerSearch');
-            if (costPerSearchEl) costPerSearchEl.innerText = '€' + CONSTANTS.cost.toFixed(2).replace('.', ',');
+            if (costPerSearchEl) costPerSearchEl.innerText = '€' + (LANG === 'en' ? CONSTANTS.cost.toFixed(2) : CONSTANTS.cost.toFixed(2).replace('.', ','));
             const costDisplayEl = document.getElementById('costDisplay');
-            if (costDisplayEl) costDisplayEl.innerText = CONSTANTS.cost.toFixed(2).replace('.', ',');
+            if (costDisplayEl) costDisplayEl.innerText = LANG === 'en' ? CONSTANTS.cost.toFixed(2) : CONSTANTS.cost.toFixed(2).replace('.', ',');
             if (window.presentationState) window.presentationState.cost = CONSTANTS.cost;
             
             updateCharts();
@@ -1292,12 +1534,13 @@
         function animateValue(id, end, prefix="", suffix="") {
             const el = document.getElementById(id);
             if(!el) return;
+            const locale = LANG === 'en' ? 'en-US' : 'de-DE';
             gsap.to(el, {
                 innerText: Math.round(end),
                 duration: 0.5,
                 snap: { innerText: 1 },
                 onUpdate: function() {
-                    el.innerText = prefix + new Intl.NumberFormat('de-DE').format(Math.round(this.targets()[0].innerText)) + suffix;
+                    el.innerText = prefix + new Intl.NumberFormat(locale).format(Math.round(this.targets()[0].innerText)) + suffix;
                 }
             });
         }
@@ -1322,13 +1565,14 @@
             params.set('cost', cost);
             if (logo) params.set('logo', logo);
             params.set('skipForm', '1');
+            if (LANG === 'en') params.set('lang', 'en');
             const url = window.location.origin + window.location.pathname + '?' + params.toString();
-            navigator.clipboard.writeText(url).then(() => alert('Link in Zwischenablage kopiert.')).catch(() => prompt('Link kopieren:', url));
+            navigator.clipboard.writeText(url).then(() => alert(t('alert_link_copied'))).catch(() => prompt('Link kopieren:', url));
         }
 
         function downloadAsHtml() {
             const s = window.presentationState || {};
-            const state = { company: s.company || 'KUNDE', trucks: s.trucks || 120, cost: s.cost != null ? s.cost : CONSTANTS.cost, logoUrl: s.logoUrl || '' };
+            const state = { company: s.company || 'KUNDE', trucks: s.trucks || 120, cost: s.cost != null ? s.cost : CONSTANTS.cost, logoUrl: s.logoUrl || '', lang: LANG };
             let html = document.documentElement.outerHTML;
             const modalStart = html.indexOf('<div class="founder-form-modal" id="founderFormModal">');
             const overlayComment = html.indexOf('<!-- START OVERLAY -->');
@@ -1352,6 +1596,7 @@
 
         // --- INIT LOAD ---
         window.addEventListener('DOMContentLoaded', () => {
+            applyLanguage(window.__EXPORTED_STATE__ && window.__EXPORTED_STATE__.lang ? window.__EXPORTED_STATE__.lang : getLang());
             if (window.__EXPORTED_STATE__) {
                 applyPresentationState(window.__EXPORTED_STATE__);
                 const modal = document.getElementById('founderFormModal');
@@ -1400,6 +1645,7 @@
                 });
                 startPresentation();
             } else {
+                document.getElementById('clientNameHero').innerText = (client === 'KUNDE' || client === 'CUSTOMER') ? t('hero_default') : client;
                 document.getElementById('founderCompany').value = client;
                 document.getElementById('founderTrucks').value = trucks;
                 if (logoParam) document.getElementById('founderLogoUrl').value = logoParam;
